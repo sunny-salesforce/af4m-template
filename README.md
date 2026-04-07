@@ -56,14 +56,15 @@ Three layers ensure the agent understands data in business terms:
 
 ## Presentations
 
-Two branded HTML presentations are included for sharing and stakeholder review:
+Branded HTML presentations and tools are included for sharing and stakeholder review:
 
 | File | Format | Description |
 |---|---|---|
 | [`agentforce-marketing-scrollable.html`](agentforce-marketing-scrollable.html) | Scrollable page | Long-form one-pager with animated sections and scroll-triggered reveals |
 | [`agentforce-marketing-interactive.html`](agentforce-marketing-interactive.html) | Interactive deck | 10-slide full-screen presentation with keyboard/scroll/touch navigation |
+| [`agentforce-marketing-scoping-template.html`](agentforce-marketing-scoping-template.html) | Scoping tool | Interactive 6-section form for org assessment, data sources, capabilities, and timeline planning |
 
-Open either file in a browser to view.
+Open any file in a browser to view.
 
 ## Prerequisites
 
@@ -99,6 +100,19 @@ Open either file in a browser to view.
 **Act 2 — Insight**: "Compare all paid channels" → "Highest CPC? Generate a report" → "Unified paid + owned view"
 
 **Act 3 — Action**: "Create a segment for top clickers" → "Trigger a broadcast to that audience" → "Executive summary report"
+
+## Planning Documentation
+
+Detailed research, architecture decisions, and analysis documents in the `docs/` folder:
+
+| Document | Description |
+|---|---|
+| [`implementation-plan.md`](docs/implementation-plan.md) | Complete Plan v2 — 24 components with full Apex code, metadata XML, and deployment sequence |
+| [`nl-to-sql-architecture.md`](docs/nl-to-sql-architecture.md) | 3-layer NL-to-SQL design — schema discovery, prompt template, validated execution with ReAct loop |
+| [`data-prism-metadata-studio-research.md`](docs/data-prism-metadata-studio-research.md) | Einstein Data Prism auto-scanning, vector DB grounding, and Metadata Studio admin UI research |
+| [`semantic-data-model-research.md`](docs/semantic-data-model-research.md) | Customer 360 Semantic Data Model, Tableau Semantics engine, and MI integration paths |
+| [`design-review-v1-to-v2.md`](docs/design-review-v1-to-v2.md) | 11-gap analysis from Plan v1 → v2 covering architecture, capabilities, and deployment |
+| [`scope-effort-analysis.md`](docs/scope-effort-analysis.md) | Effort comparison across 3 delivery models — manual, hybrid AI, and MeshMesh-assisted |
 
 ## Version History
 

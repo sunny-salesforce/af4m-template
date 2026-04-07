@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agentforce Marketing Demo — Scoping Template</title>
+<script src="https://assets.meshmesh.io/system/tailwindcss-browser-4.js"></script>
+<style type="text/tailwindcss">
+@theme {
+  --color-primary: #032D60;
+  --color-secondary: #0176D3;
+  --color-accent: #FF6B35;
+  --color-surface: #F3F3F3;
+  --color-muted: #706E6B;
+  --color-success: #2E844A;
+  --color-warning: #FE9339;
+}
+</style>
+</head>
+<body class="bg-surface min-h-screen font-sans text-gray-800">
+
+<div class="max-w-4xl mx-auto px-6 py-10">
+
+  <!-- Header -->
+  <div class="bg-primary rounded-2xl p-8 mb-8 text-white">
+    <h1 class="text-3xl font-bold mb-2">Agentforce for Marketing</h1>
+    <p class="text-blue-200 text-lg">Demo Scoping Template</p>
+    <p class="text-blue-300 text-sm mt-3">Fill out each section below to define the scope of your Marketing Intelligence demo. Return completed answers so I can build a tailored implementation plan.</p>
+  </div>
+
+  <!-- Section 1: Org & Environment -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="bg-secondary text-white text-sm font-bold rounded-full w-8 h-8 flex items-center justify-center">1</span>
+      <h2 class="text-xl font-bold text-primary">Org & Environment</h2>
+    </div>
+    <div class="space-y-4 text-sm">
+      <div class="border-l-4 border-secondary pl-4">
+        <p class="font-semibold text-primary">Salesforce Org Type</p>
+        <p class="text-muted">Production, Sandbox, Developer Edition, or Trial? Is Marketing Intelligence already provisioned?</p>
+      </div>
+      <div class="border-l-4 border-secondary pl-4">
+        <p class="font-semibold text-primary">Licenses Available</p>
+        <p class="text-muted">Which of these do you have: Marketing Intelligence, Data Cloud, Agentforce, Tableau/CRM Analytics?</p>
+      </div>
+      <div class="border-l-4 border-secondary pl-4">
+        <p class="font-semibold text-primary">Existing Configuration</p>
+        <p class="text-muted">Is anything already set up on this org? (Data Cloud streams, existing agents, connectors, etc.)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 2: Data Sources & Channels -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="bg-secondary text-white text-sm font-bold rounded-full w-8 h-8 flex items-center justify-center">2</span>
+      <h2 class="text-xl font-bold text-primary">Data Sources & Channels</h2>
+    </div>
+    <div class="space-y-4 text-sm">
+      <div class="border-l-4 border-accent pl-4">
+        <p class="font-semibold text-primary">Ad Platform Connectors</p>
+        <p class="text-muted">Which ad channels should be demonstrated? Options include:</p>
+        <div class="mt-2 flex flex-wrap gap-2">
+          <span class="bg-orange-50 text-accent border border-orange-200 px-3 py-1 rounded-full text-xs font-medium">Meta Ads</span>
+          <span class="bg-orange-50 text-accent border border-orange-200 px-3 py-1 rounded-full text-xs font-medium">Google Ads</span>
+          <span class="bg-orange-50 text-accent border border-orange-200 px-3 py-1 rounded-full text-xs font-medium">Samsung Ads</span>
+          <span class="bg-orange-50 text-accent border border-orange-200 px-3 py-1 rounded-full text-xs font-medium">Custom CSV (Total Connect)</span>
+        </div>
+      </div>
+      <div class="border-l-4 border-accent pl-4">
+        <p class="font-semibold text-primary">Use Real Data or Sample Data?</p>
+        <p class="text-muted">Should we use EMI Mock connectors with generated sample data, or do you have real campaign CSVs to upload?</p>
+      </div>
+      <div class="border-l-4 border-accent pl-4">
+        <p class="font-semibold text-primary">Campaign Naming Convention</p>
+        <p class="text-muted">Do your campaigns follow a naming pattern (e.g. <code class="bg-gray-100 px-1 rounded">US_SpringSale_Broad_CPC_20250201_20250401</code>)? This enables pattern extraction.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3: Demo Capabilities -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="bg-secondary text-white text-sm font-bold rounded-full w-8 h-8 flex items-center justify-center">3</span>
+      <h2 class="text-xl font-bold text-primary">Demo Capabilities to Showcase</h2>
+    </div>
+    <p class="text-muted text-sm mb-4">Select which capabilities you'd like included in the demo:</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+      <div class="bg-blue-50 border border-blue-100 rounded-lg p-4">
+        <p class="font-semibold text-primary">📊 Data Pipelines & Unification</p>
+        <p class="text-muted text-xs mt-1">Multi-channel data ingestion, field mapping, semantic model</p>
+      </div>
+      <div class="bg-blue-50 border border-blue-100 rounded-lg p-4">
+        <p class="font-semibold text-primary">🤖 Einstein Data Enrichment</p>
+        <p class="text-muted text-xs mt-1">AI-powered channel harmonization & data normalization</p>
+      </div>
+      <div class="bg-blue-50 border border-blue-100 rounded-lg p-4">
+        <p class="font-semibold text-primary">🔍 Campaign Pattern Extraction</p>
+        <p class="text-muted text-xs mt-1">Parse campaign names into dimensions (Country, Audience, KPI, etc.)</p>
+      </div>
+      <div class="bg-blue-50 border border-blue-100 rounded-lg p-4">
+        <p class="font-semibold text-primary">📈 Tableau Next Visualizations</p>
+        <p class="text-muted text-xs mt-1">CPC by campaign charts, performance dashboards</p>
+      </div>
+      <div class="bg-blue-50 border border-blue-100 rounded-lg p-4">
+        <p class="font-semibold text-primary">🎯 Marketing Goals</p>
+        <p class="text-muted text-xs mt-1">Impression/click targets with real-time progress tracking</p>
+      </div>
+      <div class="bg-blue-50 border border-blue-100 rounded-lg p-4">
+        <p class="font-semibold text-primary">⚡ Agentforce Paid Media Agent</p>
+        <p class="text-muted text-xs mt-1">AI agent that surfaces low-performing ads and recommends optimizations</p>
+      </div>
+      <div class="bg-green-50 border border-green-100 rounded-lg p-4 md:col-span-2">
+        <p class="font-semibold text-success">🧩 Custom Agentforce Agent (Advanced)</p>
+        <p class="text-muted text-xs mt-1">Build a fully custom agent with GenAI functions, plugins, and planner beyond the default Paid Media topic</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 4: Agentforce Customization -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="bg-secondary text-white text-sm font-bold rounded-full w-8 h-8 flex items-center justify-center">4</span>
+      <h2 class="text-xl font-bold text-primary">Agentforce Customization</h2>
+    </div>
+    <div class="space-y-4 text-sm">
+      <div class="border-l-4 border-green-400 pl-4">
+        <p class="font-semibold text-primary">Agent Scope</p>
+        <p class="text-muted">Use the <strong>default Paid Media Topic</strong> from the Asset Library, or build a <strong>custom agent</strong> with tailored functions?</p>
+      </div>
+      <div class="border-l-4 border-green-400 pl-4">
+        <p class="font-semibold text-primary">Custom Agent Capabilities (if custom)</p>
+        <p class="text-muted">What should the agent be able to do? Examples:</p>
+        <ul class="text-muted mt-1 space-y-1 pl-4 list-disc">
+          <li>Analyze campaign performance across channels</li>
+          <li>Recommend budget reallocation</li>
+          <li>Generate campaign summaries & reports</li>
+          <li>Flag anomalies in ad spend or CPC</li>
+          <li>Answer natural language questions about marketing data</li>
+        </ul>
+      </div>
+      <div class="border-l-4 border-green-400 pl-4">
+        <p class="font-semibold text-primary">Target Audience for the Demo</p>
+        <p class="text-muted">Who will see this demo? (CMO, Marketing Ops, Paid Media team, C-Suite, Prospects, etc.)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 5: Demo Storyline -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="bg-secondary text-white text-sm font-bold rounded-full w-8 h-8 flex items-center justify-center">5</span>
+      <h2 class="text-xl font-bold text-primary">Demo Storyline & Narrative</h2>
+    </div>
+    <div class="space-y-4 text-sm">
+      <div class="border-l-4 border-purple-400 pl-4">
+        <p class="font-semibold text-primary">Industry / Company Scenario</p>
+        <p class="text-muted">Is this for a specific industry or fictional company? (e.g., Retail brand "NTO", B2B SaaS, Financial Services)</p>
+      </div>
+      <div class="border-l-4 border-purple-400 pl-4">
+        <p class="font-semibold text-primary">Key Pain Points to Address</p>
+        <p class="text-muted">What problems should the demo solve? (e.g., siloed channel data, no cross-channel visibility, manual optimization)</p>
+      </div>
+      <div class="border-l-4 border-purple-400 pl-4">
+        <p class="font-semibold text-primary">"Wow Moment"</p>
+        <p class="text-muted">What's the single most impressive moment you want in the demo? (e.g., agent finds wasted spend in seconds, unified view across 3 channels)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 6: Timeline & Constraints -->
+  <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="bg-secondary text-white text-sm font-bold rounded-full w-8 h-8 flex items-center justify-center">6</span>
+      <h2 class="text-xl font-bold text-primary">Timeline & Constraints</h2>
+    </div>
+    <div class="space-y-4 text-sm">
+      <div class="border-l-4 border-warning pl-4">
+        <p class="font-semibold text-primary">Demo Date</p>
+        <p class="text-muted">When does this need to be ready?</p>
+      </div>
+      <div class="border-l-4 border-warning pl-4">
+        <p class="font-semibold text-primary">Scope Preference</p>
+        <p class="text-muted">Full comprehensive demo (~45 min setup) or quick highlights (~15 min setup)?</p>
+      </div>
+      <div class="border-l-4 border-warning pl-4">
+        <p class="font-semibold text-primary">Known Blockers</p>
+        <p class="text-muted">Any known issues? (Missing licenses, org restrictions, feature flags not enabled, etc.)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer CTA -->
+  <div class="bg-gradient-to-r from-primary to-secondary rounded-xl p-6 text-white text-center">
+    <p class="text-lg font-semibold mb-2">Ready to scope?</p>
+    <p class="text-blue-200 text-sm">Fill in your answers for each section above and send them back. I'll build a detailed, phased implementation plan tailored to your needs.</p>
+  </div>
+
+</div>
+</body>
+</html>
