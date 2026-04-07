@@ -3,949 +3,291 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Agentforce for Marketing — Solutions Template</title>
-  <script src="https://assets.meshmesh.io/system/tailwindcss-browser-4.js"></script>
+  <title>Salesforce Solutions Templates</title>
+  <link rel="preconnect" href="https://a.sfdcstatic.com">
   <style>
-    @font-face { font-family: 'Salesforce Sans'; src: url('https://a.sfdcstatic.com/shared/fonts/salesforce-sans/SalesforceSans-Regular.woff2') format('woff2'); font-weight: 400; }
-    @font-face { font-family: 'Salesforce Sans'; src: url('https://a.sfdcstatic.com/shared/fonts/salesforce-sans/SalesforceSans-Bold.woff2') format('woff2'); font-weight: 700; }
-    @font-face { font-family: 'ITC Avant Garde'; src: url('https://a.sfdcstatic.com/shared/fonts/avant-garde/AvantGardeForSalesforceW05-Dm.woff2') format('woff2'); font-weight: 500; }
-  </style>
-  <style type="text/tailwindcss">
-    @theme {
-      --color-primary: #0176D3;
-      --color-secondary: #032D60;
-      --color-accent: #0D9DDA;
-      --color-surface: #F4F6F9;
-      --color-muted: #444444;
-      --color-border: #D8DDE6;
-      --color-success: #2E844A;
-      --color-warning: #FE9339;
-      --color-error: #EA001E;
-      --font-sans: 'Salesforce Sans', Arial, Helvetica, sans-serif;
-      --font-heading: 'ITC Avant Garde', 'Salesforce Sans', Arial, sans-serif;
+    @font-face { font-family: 'Salesforce Sans'; src: url('https://a.sfdcstatic.com/shared/fonts/salesforce-sans/SalesforceSans-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+    @font-face { font-family: 'Salesforce Sans'; src: url('https://a.sfdcstatic.com/shared/fonts/salesforce-sans/SalesforceSans-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+    @font-face { font-family: 'ITC Avant Garde'; src: url('https://a.sfdcstatic.com/shared/fonts/avant-garde/AvantGardeForSalesforceW05-Dm.woff2') format('woff2'); font-display: swap; }
+
+    :root {
+      --primary: #0176D3;
+      --secondary: #032D60;
+      --accent: #0D9DDA;
+      --surface: #F4F6F9;
+      --muted: #6B7280;
+      --border: #D8DDE6;
+      --text: #032D60;
+      --success: #2E844A;
     }
 
-    .fade-up {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-    }
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .fade-up-delay-1 { transition-delay: 0.1s; }
-    .fade-up-delay-2 { transition-delay: 0.2s; }
-    .fade-up-delay-3 { transition-delay: 0.3s; }
-    .fade-up-delay-4 { transition-delay: 0.4s; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Salesforce Sans', -apple-system, BlinkMacSystemFont, sans-serif; color: var(--text); background: var(--surface); -webkit-font-smoothing: antialiased; }
+    h1, h2, h3 { font-family: 'ITC Avant Garde', 'Salesforce Sans', sans-serif; }
 
-    .gradient-text {
-      background: linear-gradient(135deg, #0176D3, #0D9DDA, #2E844A);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+    /* ─── NAV ─── */
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(3,45,96,.97); backdrop-filter: blur(12px); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; height: 56px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-left { display: flex; align-items: center; gap: .75rem; }
+    .nav-logo { height: 24px; filter: brightness(0) invert(1); }
+    .nav-divider { width: 1px; height: 18px; background: rgba(255,255,255,.2); }
+    .nav-title { color: rgba(255,255,255,.8); font-size: 13px; font-weight: 700; letter-spacing: .5px; }
+    .nav-right a { color: rgba(255,255,255,.65); font-size: 13px; text-decoration: none; padding: .35rem .7rem; border-radius: 6px; transition: all .2s; }
+    .nav-right a:hover { color: #fff; background: rgba(255,255,255,.1); }
 
-    .arch-layer {
-      border-left: 3px solid #0176D3;
-      transition: all 0.3s ease;
-    }
-    .arch-layer:hover {
-      border-left-color: #0D9DDA;
-      background-color: rgba(1, 118, 211, 0.03);
-      transform: translateX(4px);
-    }
+    /* ─── HERO ─── */
+    .hero { background: linear-gradient(160deg, var(--secondary) 0%, #0a3d72 50%, var(--primary) 100%); padding: 5rem 2rem 4rem; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -50%; right: -25%; width: 900px; height: 900px; background: radial-gradient(circle, rgba(13,157,218,.12) 0%, transparent 60%); pointer-events: none; }
+    .hero::after { content: ''; position: absolute; bottom: -40%; left: -15%; width: 700px; height: 700px; background: radial-gradient(circle, rgba(1,118,211,.1) 0%, transparent 60%); pointer-events: none; }
+    .hero-inner { max-width: 800px; margin: 0 auto; position: relative; z-index: 1; text-align: center; }
+    .hero h1 { font-size: clamp(2rem, 4.5vw, 3.25rem); color: #fff; line-height: 1.15; margin-bottom: 1rem; }
+    .hero p { font-size: 1.1rem; color: rgba(255,255,255,.7); max-width: 560px; margin: 0 auto; line-height: 1.6; }
 
-    .phase-card {
-      position: relative;
-      overflow: hidden;
-    }
-    .phase-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 4px;
-      height: 100%;
-      background: linear-gradient(180deg, #0176D3, #0D9DDA);
-      border-radius: 2px;
-    }
+    /* ─── TEMPLATES GRID ─── */
+    .templates { max-width: 1200px; margin: -2.5rem auto 0; padding: 0 2rem 4rem; position: relative; z-index: 2; }
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 1.25rem; padding-left: .25rem; }
 
-    .component-pill {
-      transition: all 0.2s ease;
-    }
-    .component-pill:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(1, 118, 211, 0.15);
-    }
+    /* Featured cards — large 2-col */
+    .featured-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
 
-    .timeline-dot {
-      position: relative;
-    }
-    .timeline-dot::before {
-      content: '';
-      position: absolute;
-      left: -29px;
-      top: 8px;
-      width: 14px;
-      height: 14px;
-      background: #0176D3;
-      border-radius: 50%;
-      border: 3px solid white;
-      box-shadow: 0 0 0 2px #0176D3;
-    }
+    .template-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: all .35s cubic-bezier(.25,.8,.25,1); }
+    .template-card:hover { box-shadow: 0 20px 60px rgba(3,45,96,.1); transform: translateY(-4px); border-color: var(--primary); }
 
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
-    .float-anim { animation: float 3s ease-in-out infinite; }
-    .float-anim-delay { animation: float 3s ease-in-out 1s infinite; }
-    .float-anim-delay-2 { animation: float 3s ease-in-out 2s infinite; }
+    .card-header { padding: 2rem 2rem 1.75rem; position: relative; overflow: hidden; }
+    .card-header::before { content: ''; position: absolute; inset: 0; opacity: .06; background-image: radial-gradient(circle at 20% 80%, currentColor 1px, transparent 1px), radial-gradient(circle at 80% 20%, currentColor 1px, transparent 1px); background-size: 24px 24px; }
+    .card-header-inner { position: relative; z-index: 1; }
 
-    @keyframes pulse-ring {
-      0% { transform: scale(1); opacity: 0.4; }
-      100% { transform: scale(1.5); opacity: 0; }
-    }
-    .pulse-ring::after {
-      content: '';
-      position: absolute;
-      inset: -4px;
-      border: 2px solid #0176D3;
-      border-radius: 50%;
-      animation: pulse-ring 2s ease-out infinite;
-    }
+    .card-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; }
+    .card-icon svg { width: 26px; height: 26px; stroke: #fff; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 
-    .nav-link {
-      position: relative;
-    }
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: #0176D3;
-      transition: width 0.3s ease;
-    }
-    .nav-link:hover::after {
-      width: 100%;
-    }
+    .card-badge { display: inline-flex; align-items: center; gap: .35rem; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: .25rem .6rem; border-radius: 4px; margin-bottom: .75rem; }
 
-    html { scroll-behavior: smooth; }
+    .card-header h3 { font-size: 1.5rem; line-height: 1.2; margin-bottom: .5rem; }
+    .card-header p { font-size: .9rem; line-height: 1.5; opacity: .75; }
+
+    .card-body { padding: 1.75rem 2rem; flex: 1; display: flex; flex-direction: column; }
+    .card-body p { font-size: .9rem; color: var(--muted); line-height: 1.6; flex: 1; }
+
+    .card-meta { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--border); }
+    .card-meta-tag { font-size: 11px; font-weight: 600; color: var(--text); background: var(--surface); padding: .3rem .65rem; border-radius: 6px; }
+
+    .card-cta { display: flex; align-items: center; gap: .5rem; margin-top: 1.25rem; font-size: .875rem; font-weight: 700; color: var(--primary); }
+    .card-cta .arrow { width: 20px; height: 20px; border-radius: 50%; background: var(--surface); display: flex; align-items: center; justify-content: center; transition: all .25s; }
+    .template-card:hover .card-cta .arrow { background: var(--primary); }
+    .card-cta .arrow svg { width: 12px; height: 12px; stroke: var(--primary); fill: none; stroke-width: 2; transition: stroke .25s; }
+    .template-card:hover .card-cta .arrow svg { stroke: #fff; }
+
+    /* Colors per template */
+    .theme-implementation .card-header { background: linear-gradient(135deg, var(--secondary), var(--primary)); color: #fff; }
+    .theme-implementation .card-icon { background: rgba(255,255,255,.15); }
+    .theme-scoping .card-header { background: linear-gradient(135deg, var(--accent), var(--primary)); color: #fff; }
+    .theme-scoping .card-icon { background: rgba(255,255,255,.15); }
+
+    /* Coming Soon grid — smaller cards */
+    .coming-soon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+    .coming-soon-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; display: flex; align-items: flex-start; gap: 1rem; opacity: .6; cursor: default; }
+    .coming-soon-card .cs-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--surface); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .coming-soon-card .cs-icon svg { width: 20px; height: 20px; stroke: var(--muted); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .coming-soon-card h4 { font-family: 'ITC Avant Garde', sans-serif; font-size: .9rem; color: var(--text); margin-bottom: .25rem; }
+    .coming-soon-card p { font-size: .8rem; color: var(--muted); line-height: 1.45; }
+    .cs-badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; color: var(--muted); background: var(--surface); padding: .2rem .5rem; border-radius: 4px; margin-top: .5rem; }
+
+    /* ─── FOOTER ─── */
+    footer { background: #fff; border-top: 1px solid var(--border); padding: 2rem; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; }
+    footer p, footer a { font-size: .8rem; color: var(--muted); }
+    footer a { text-decoration: none; }
+    footer a:hover { color: var(--primary); text-decoration: underline; }
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+
+    /* ─── ANIMATIONS ─── */
+    .fade-up { opacity: 0; transform: translateY(20px); transition: all .5s cubic-bezier(.25,.8,.25,1); }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .delay-1 { transition-delay: .1s; }
+    .delay-2 { transition-delay: .2s; }
+
+    @media (max-width: 640px) {
+      .hero { padding: 3.5rem 1.5rem 3rem; }
+      .templates { padding: 0 1.25rem 3rem; }
+      .card-header { padding: 1.5rem; }
+      .card-body { padding: 1.25rem 1.5rem; }
+    }
   </style>
 </head>
-<body class="font-sans text-[#080707] bg-white">
+<body>
 
-  <!-- Navigation -->
-  <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border">
-    <div class="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between h-16">
-      <img src="https://a.sfdcstatic.com/shared/images/c360-nav/salesforce-with-type-logo.svg" alt="Salesforce" class="h-7" />
-      <div class="hidden md:flex items-center gap-8">
-        <a href="#overview" class="nav-link text-sm text-muted hover:text-secondary">Overview</a>
-        <a href="#capabilities" class="nav-link text-sm text-muted hover:text-secondary">Capabilities</a>
-        <a href="#architecture" class="nav-link text-sm text-muted hover:text-secondary">Architecture</a>
-        <a href="#grounding" class="nav-link text-sm text-muted hover:text-secondary">AI Grounding</a>
-        <a href="#phases" class="nav-link text-sm text-muted hover:text-secondary">Phases</a>
-        <a href="#components" class="nav-link text-sm text-muted hover:text-secondary">Components</a>
-        <a href="#demo" class="nav-link text-sm text-muted hover:text-secondary">Demo</a>
-        <a href="#resources" class="nav-link text-sm text-muted hover:text-secondary">Resources</a>
+  <!-- Nav -->
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-left">
+        <img src="https://a.sfdcstatic.com/shared/images/c360-nav/salesforce-with-type-logo.svg" alt="Salesforce" class="nav-logo">
+        <div class="nav-divider"></div>
+        <span class="nav-title">Solutions Templates</span>
+      </div>
+      <div class="nav-right">
+        <a href="https://github.com/sunny-salesforce/af4m-template" target="_blank">GitHub ↗</a>
       </div>
     </div>
   </nav>
 
   <!-- Hero -->
-  <section class="relative overflow-hidden bg-gradient-to-b from-secondary via-secondary to-primary py-28 md:py-40 px-6">
-    <div class="absolute inset-0 opacity-10">
-      <div class="absolute top-20 left-1/4 w-64 h-64 bg-accent rounded-full blur-3xl float-anim"></div>
-      <div class="absolute bottom-20 right-1/4 w-80 h-80 bg-primary rounded-full blur-3xl float-anim-delay"></div>
-      <div class="absolute top-1/2 left-1/2 w-48 h-48 bg-white rounded-full blur-3xl float-anim-delay-2"></div>
-    </div>
-    <div class="relative max-w-4xl mx-auto text-center">
-      <div class="fade-up">
-        <p class="text-accent text-sm font-bold tracking-widest uppercase mb-4">Solutions Template</p>
-        <h1 class="font-heading text-4xl md:text-6xl lg:text-[72px] font-medium text-white leading-tight tracking-tight mb-6">
-          Agentforce for<br>Marketing
-        </h1>
-        <p class="text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed">
-          An org-agnostic, deployable blueprint for building a custom Agentforce Marketing Agent on Salesforce — combining Data Cloud, Marketing Cloud Growth, and CRM into a single conversational interface.
-        </p>
-      </div>
-      <div class="fade-up fade-up-delay-1 flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="#capabilities" class="inline-block bg-white text-primary font-bold px-8 py-3.5 rounded text-base hover:shadow-lg transition-shadow">Explore Capabilities</a>
-        <a href="#phases" class="inline-block border-2 border-white/30 text-white font-bold px-8 py-3.5 rounded text-base hover:bg-white/10 transition-colors">View Implementation</a>
-      </div>
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Salesforce Solutions<br>Templates</h1>
+      <p>Ready-to-deploy blueprints for Agentforce, Data Cloud, Marketing Cloud, and more. Each template includes architecture, implementation plans, and interactive tools.</p>
     </div>
   </section>
 
-  <!-- Key Stats -->
-  <section class="bg-white py-8 border-b border-border">
-    <div class="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-      <div class="fade-up">
-        <p class="font-heading text-3xl md:text-4xl font-medium text-primary">24</p>
-        <p class="text-sm text-muted mt-1">Deployable Components</p>
-      </div>
-      <div class="fade-up fade-up-delay-1">
-        <p class="font-heading text-3xl md:text-4xl font-medium text-primary">8</p>
-        <p class="text-sm text-muted mt-1">GenAI Functions</p>
-      </div>
-      <div class="fade-up fade-up-delay-2">
-        <p class="font-heading text-3xl md:text-4xl font-medium text-primary">3</p>
-        <p class="text-sm text-muted mt-1">AI Grounding Layers</p>
-      </div>
-      <div class="fade-up fade-up-delay-3">
-        <p class="font-heading text-3xl md:text-4xl font-medium text-primary">~3h</p>
-        <p class="text-sm text-muted mt-1">Setup Time</p>
-      </div>
-    </div>
-  </section>
+  <!-- Templates -->
+  <section class="templates">
 
-  <!-- Overview -->
-  <section id="overview" class="py-20 md:py-28 px-6">
-    <div class="max-w-5xl mx-auto">
-      <div class="fade-up text-center mb-16">
-        <p class="text-primary text-sm font-bold tracking-widest uppercase mb-3">Overview</p>
-        <h2 class="font-heading text-3xl md:text-[44px] font-medium text-secondary leading-tight">What This Template Delivers</h2>
-      </div>
-      <div class="fade-up max-w-3xl mx-auto">
-        <p class="text-lg text-muted leading-relaxed mb-6">
-          This is a complete implementation template for building a custom Agentforce agent that brings AI-powered marketing intelligence directly into your Salesforce org. It enables marketers to explore data, launch campaigns, and analyze performance through natural language.
-        </p>
-        <p class="text-lg text-muted leading-relaxed">
-          The template is designed to be <strong class="text-secondary">org-agnostic</strong>: it does not assume specific object names, table structures, or org configurations. Every component adapts at runtime through dynamic schema discovery and an AI grounding layer that translates raw metadata into business-meaningful context.
-        </p>
-      </div>
-    </div>
-  </section>
+    <!-- Featured Templates -->
+    <p class="section-label fade-up">Featured Templates</p>
+    <div class="featured-grid">
 
-  <!-- Capabilities -->
-  <section id="capabilities" class="bg-surface py-20 md:py-28 px-6">
-    <div class="max-w-6xl mx-auto">
-      <div class="fade-up text-center mb-16">
-        <p class="text-primary text-sm font-bold tracking-widest uppercase mb-3">Capabilities</p>
-        <h2 class="font-heading text-3xl md:text-[44px] font-medium text-secondary leading-tight">Three Core Agent Capabilities</h2>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-8">
-        <!-- Capability 1 -->
-        <div class="fade-up bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow">
-          <div class="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-6">
-            <svg class="w-7 h-7 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
-            </svg>
-          </div>
-          <h3 class="font-heading text-xl font-medium text-secondary mb-3">Data Exploration</h3>
-          <p class="text-muted leading-relaxed text-[15px]">
-            Ask questions about any Data Cloud or CRM data in natural language. The agent discovers available tables, translates questions into SQL, executes queries, and returns results — all without needing to know table names or query syntax.
-          </p>
-          <div class="mt-6 pt-5 border-t border-border">
-            <p class="text-xs text-muted/70 font-bold uppercase tracking-wider mb-2">Plugin Functions</p>
-            <div class="flex flex-wrap gap-2">
-              <span class="text-xs bg-surface text-secondary px-2.5 py-1 rounded-full">Discover Schema</span>
-              <span class="text-xs bg-surface text-secondary px-2.5 py-1 rounded-full">Generate SQL</span>
-              <span class="text-xs bg-surface text-secondary px-2.5 py-1 rounded-full">Query DMOs</span>
-              <span class="text-xs bg-surface text-secondary px-2.5 py-1 rounded-full">Query CRM</span>
+      <!-- Template 1: Agentforce for Marketing -->
+      <a href="agentforce-marketing-scrollable.html" class="template-card theme-implementation fade-up">
+        <div class="card-header">
+          <div class="card-header-inner">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z"/></svg>
             </div>
+            <div class="card-badge" style="background: rgba(255,255,255,.15); color: #fff;">Implementation Template</div>
+            <h3>Agentforce for Marketing</h3>
+            <p>Custom AI agent with NL-to-SQL, campaign automation, and unified analytics</p>
           </div>
         </div>
-
-        <!-- Capability 2 -->
-        <div class="fade-up fade-up-delay-1 bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow">
-          <div class="w-14 h-14 rounded-lg bg-success/10 flex items-center justify-center mb-6">
-            <svg class="w-7 h-7 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.841m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/>
-            </svg>
+        <div class="card-body">
+          <p>A 24-component Agentforce agent that combines Data Cloud, Marketing Cloud Growth, and CRM into a single conversational interface. Includes a 3-layer NL-to-SQL engine, AI grounding with Data Prism, and an 8-phase deployment plan.</p>
+          <div class="card-meta">
+            <span class="card-meta-tag">24 Components</span>
+            <span class="card-meta-tag">8 GenAI Functions</span>
+            <span class="card-meta-tag">3 Plugins</span>
+            <span class="card-meta-tag">~3h Setup</span>
+            <span class="card-meta-tag">Agentforce</span>
+            <span class="card-meta-tag">Data Cloud</span>
+            <span class="card-meta-tag">MC Growth</span>
           </div>
-          <h3 class="font-heading text-xl font-medium text-secondary mb-3">Campaign & Journey Creation</h3>
-          <p class="text-muted leading-relaxed text-[15px]">
-            Create audience segments targeting Unified Individuals in Data Cloud, then trigger Broadcast Flows to activate segments through Marketing Cloud Growth channels. End-to-end campaign execution through conversation.
-          </p>
-          <div class="mt-6 pt-5 border-t border-border">
-            <p class="text-xs text-muted/70 font-bold uppercase tracking-wider mb-2">Plugin Functions</p>
-            <div class="flex flex-wrap gap-2">
-              <span class="text-xs bg-surface text-secondary px-2.5 py-1 rounded-full">Create Segment</span>
-              <span class="text-xs bg-surface text-secondary px-2.5 py-1 rounded-full">Trigger Broadcast Flow</span>
-            </div>
+          <div class="card-cta">
+            View Template
+            <span class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
           </div>
         </div>
+      </a>
 
-        <!-- Capability 3 -->
-        <div class="fade-up fade-up-delay-2 bg-white rounded-xl p-8 shadow-sm hover:shadow-md transition-shadow">
-          <div class="w-14 h-14 rounded-lg bg-accent/10 flex items-center justify-center mb-6">
-            <svg class="w-7 h-7 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/>
-            </svg>
-          </div>
-          <h3 class="font-heading text-xl font-medium text-secondary mb-3">Performance Analysis</h3>
-          <p class="text-muted leading-relaxed text-[15px]">
-            Analyze both owned (CRM Campaigns) and paid (Data Cloud marketing data from Meta Ads, Google Ads) channel performance in a unified view. Generate executive-style reports with metrics and recommendations.
-          </p>
-          <div class="mt-6 pt-5 border-t border-border">
-            <p class="text-xs text-muted/70 font-bold uppercase tracking-wider mb-2">Plugin Functions</p>
-            <div class="flex flex-wrap gap-2">
-              <span class="text-xs bg-surface text-secondary px-2.5 py-1 rounded-full">Analyze Paid</span>
-              <span class="text-xs bg-surface text-secondary px-2.5 py-1 rounded-full">Analyze Owned</span>
-              <span class="text-xs bg-surface text-secondary px-2.5 py-1 rounded-full">Generate Report</span>
+      <!-- Template 2: Demo Scoping Template -->
+      <a href="agentforce-marketing-scoping-template.html" class="template-card theme-scoping fade-up delay-1">
+        <div class="card-header">
+          <div class="card-header-inner">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><path d="M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/><path d="M9 14l2 2 4-4"/></svg>
             </div>
+            <div class="card-badge" style="background: rgba(255,255,255,.15); color: #fff;">Scoping Tool</div>
+            <h3>Demo Scoping Template</h3>
+            <p>Interactive assessment for planning your Agentforce marketing demo</p>
           </div>
         </div>
-      </div>
+        <div class="card-body">
+          <p>A 6-section interactive form that helps you scope an Agentforce for Marketing demo — covering org environment, data sources, demo capabilities, agent customization, storyline, and timeline constraints. Use before implementation to align stakeholders.</p>
+          <div class="card-meta">
+            <span class="card-meta-tag">6 Sections</span>
+            <span class="card-meta-tag">Interactive Form</span>
+            <span class="card-meta-tag">Org Assessment</span>
+            <span class="card-meta-tag">Timeline Planning</span>
+            <span class="card-meta-tag">Stakeholder Alignment</span>
+          </div>
+          <div class="card-cta">
+            Open Scoping Tool
+            <span class="arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+          </div>
+        </div>
+      </a>
+
     </div>
-  </section>
 
-  <!-- Architecture -->
-  <section id="architecture" class="py-20 md:py-28 px-6">
-    <div class="max-w-5xl mx-auto">
-      <div class="fade-up text-center mb-16">
-        <p class="text-primary text-sm font-bold tracking-widest uppercase mb-3">Architecture</p>
-        <h2 class="font-heading text-3xl md:text-[44px] font-medium text-secondary leading-tight">How It's Built</h2>
-      </div>
-
-      <div class="fade-up space-y-4">
-        <!-- Bot Layer -->
-        <div class="arch-layer pl-6 py-5 rounded-r-lg">
-          <div class="flex items-start gap-4">
-            <div class="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center shrink-0 mt-0.5">
-              <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"/></svg>
+    <!-- Also Included -->
+    <p class="section-label fade-up" style="margin-top: 1rem;">Also Included</p>
+    <div class="featured-grid" style="margin-bottom: 3rem;">
+      <a href="agentforce-marketing-interactive.html" class="template-card fade-up" style="border: 1px solid var(--border);">
+        <div class="card-header" style="background: var(--surface); color: var(--text); padding: 1.5rem 2rem 1.25rem;">
+          <div class="card-header-inner" style="display: flex; align-items: center; gap: 1rem;">
+            <div class="card-icon" style="background: var(--secondary); margin-bottom: 0; width: 44px; height: 44px; border-radius: 10px;">
+              <svg viewBox="0 0 24 24" style="width: 22px; height: 22px;"><path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
             </div>
             <div>
-              <h3 class="font-heading text-lg font-medium text-secondary">Marketing Copilot Bot</h3>
-              <p class="text-sm text-muted mt-1">Employee Agent / Internal Copilot — the conversational entry point</p>
+              <h3 style="font-size: 1.1rem; margin-bottom: .15rem;">Interactive Slide Deck</h3>
+              <p style="font-size: .8rem; opacity: .6;">10-slide full-screen presentation with keyboard, scroll & touch nav</p>
             </div>
           </div>
         </div>
-
-        <!-- Planner Layer -->
-        <div class="arch-layer pl-6 py-5 rounded-r-lg">
-          <div class="flex items-start gap-4">
-            <div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center shrink-0 mt-0.5">
-              <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"/></svg>
-            </div>
-            <div>
-              <h3 class="font-heading text-lg font-medium text-secondary">Marketing Intelligence Planner</h3>
-              <p class="text-sm text-muted mt-1">ReAct-based reasoning engine — orchestrates multi-step workflows with variable persistence</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Plugins Layer -->
-        <div class="arch-layer pl-6 py-5 rounded-r-lg">
-          <div class="flex items-start gap-4">
-            <div class="w-10 h-10 rounded-lg bg-accent flex items-center justify-center shrink-0 mt-0.5">
-              <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959v0a.64.64 0 01-.657.643 48.491 48.491 0 01-4.163-.3c.186 1.613.293 3.25.315 4.907a.656.656 0 01-.658.663v0c-.355 0-.676-.186-.959-.401a1.647 1.647 0 00-1.003-.349c-1.036 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401v0c.31 0 .555.26.532.57a48.039 48.039 0 01-.642 5.056c1.518.19 3.058.309 4.616.354a.64.64 0 00.657-.643v0c0-.355-.186-.676-.401-.959a1.647 1.647 0 01-.349-1.003c0-1.035 1.008-1.875 2.25-1.875 1.243 0 2.25.84 2.25 1.875 0 .369-.128.713-.349 1.003-.215.283-.4.604-.4.959v0c0 .333.277.599.61.58a48.1 48.1 0 005.427-.63 48.05 48.05 0 00.582-4.717.532.532 0 00-.533-.57v0c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.035 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.37 0 .713.128 1.003.349.283.215.604.401.959.401v0a.656.656 0 00.658-.663 48.422 48.422 0 00-.37-5.36c-1.886.342-3.81.574-5.766.689a.578.578 0 01-.61-.58v0z"/></svg>
-            </div>
-            <div>
-              <h3 class="font-heading text-lg font-medium text-secondary">3 Specialized Plugins</h3>
-              <p class="text-sm text-muted mt-1">Data Explorer (4 functions) · Campaign Ops (2 functions) · Performance Analyst (3 functions)</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Services Layer -->
-        <div class="arch-layer pl-6 py-5 rounded-r-lg">
-          <div class="flex items-start gap-4">
-            <div class="w-10 h-10 rounded-lg bg-success flex items-center justify-center shrink-0 mt-0.5">
-              <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"/></svg>
-            </div>
-            <div>
-              <h3 class="font-heading text-lg font-medium text-secondary">6 Apex Services + 2 Prompt Templates</h3>
-              <p class="text-sm text-muted mt-1">Schema discovery, data explorer, CRM query, campaign/segment, broadcast flow, performance analysis, NL-to-SQL, report generation</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Grounding Layer -->
-        <div class="arch-layer pl-6 py-5 rounded-r-lg bg-primary/[0.02]" style="border-left-color: #0D9DDA;">
-          <div class="flex items-start gap-4">
-            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center shrink-0 mt-0.5">
-              <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 14.5M14.25 3.104c.251.023.501.05.75.082M19.8 14.5l-2.047 3.07a1.126 1.126 0 01-1.645.322l-3.608-2.607L9 18.75 5 14.5m14.8 0l-2.047 3.07"/></svg>
-            </div>
-            <div>
-              <h3 class="font-heading text-lg font-medium text-secondary">AI Grounding Layer <span class="text-xs font-bold text-accent ml-2 bg-accent/10 px-2 py-0.5 rounded-full">NEW IN V2</span></h3>
-              <p class="text-sm text-muted mt-1">Data Prism + Metadata Studio + MI Semantic Data Model — ensures accuracy through business-language metadata</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Data Layer -->
-        <div class="arch-layer pl-6 py-5 rounded-r-lg" style="border-left-color: #032D60;">
-          <div class="flex items-start gap-4">
-            <div class="w-10 h-10 rounded-lg bg-secondary/80 flex items-center justify-center shrink-0 mt-0.5">
-              <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"/></svg>
-            </div>
-            <div>
-              <h3 class="font-heading text-lg font-medium text-secondary">Data Cloud + CRM</h3>
-              <p class="text-sm text-muted mt-1">DMOs · DLOs · CRM Objects · Data Graphs — unified data layer</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      </a>
     </div>
-  </section>
 
-  <!-- AI Grounding -->
-  <section id="grounding" class="bg-secondary py-20 md:py-28 px-6">
-    <div class="max-w-6xl mx-auto">
-      <div class="fade-up text-center mb-16">
-        <p class="text-accent text-sm font-bold tracking-widest uppercase mb-3">AI Grounding</p>
-        <h2 class="font-heading text-3xl md:text-[44px] font-medium text-white leading-tight">What Makes It Accurate</h2>
-        <p class="text-white/60 mt-4 max-w-2xl mx-auto text-lg">A three-layer architecture ensures the agent understands your data in business terms, not just raw API names.</p>
-      </div>
+    <!-- Coming Soon -->
+    <p class="section-label fade-up">Coming Soon</p>
+    <div class="coming-soon-grid fade-up">
 
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="fade-up bg-white/5 backdrop-blur border border-white/10 rounded-xl p-8 hover:bg-white/10 transition-colors">
-          <div class="flex items-center gap-3 mb-5">
-            <div class="relative w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center pulse-ring">
-              <span class="text-white font-bold text-sm">1</span>
-            </div>
-            <h3 class="font-heading text-lg font-medium text-white">Einstein Data Prism</h3>
-          </div>
-          <p class="text-sm text-white/50 font-bold uppercase tracking-wider mb-2">Automatic</p>
-          <p class="text-white/70 text-[15px] leading-relaxed">
-            Auto-scans all Data Cloud metadata — tables, fields, relationships, and sample values — then generates business-language descriptions stored in a vector database. At query time, returns semantically matched tables and fields.
-          </p>
+      <div class="coming-soon-card">
+        <div class="cs-icon">
+          <svg viewBox="0 0 24 24"><path d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375"/></svg>
         </div>
-
-        <div class="fade-up fade-up-delay-1 bg-white/5 backdrop-blur border border-white/10 rounded-xl p-8 hover:bg-white/10 transition-colors">
-          <div class="flex items-center gap-3 mb-5">
-            <div class="relative w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center pulse-ring" style="--tw-ring-color: #0D9DDA;">
-              <span class="text-white font-bold text-sm">2</span>
-            </div>
-            <h3 class="font-heading text-lg font-medium text-white">Metadata Studio</h3>
-          </div>
-          <p class="text-sm text-white/50 font-bold uppercase tracking-wider mb-2">Admin-Curated</p>
-          <p class="text-white/70 text-[15px] leading-relaxed">
-            An admin-facing UI for reviewing and refining auto-generated descriptions. Domain experts add business context that Data Prism alone can't infer — like "CPC = Cost per click in platform currency (USD)."
-          </p>
-        </div>
-
-        <div class="fade-up fade-up-delay-2 bg-white/5 backdrop-blur border border-white/10 rounded-xl p-8 hover:bg-white/10 transition-colors">
-          <div class="flex items-center gap-3 mb-5">
-            <div class="relative w-10 h-10 rounded-full bg-success/20 flex items-center justify-center pulse-ring" style="--tw-ring-color: #2E844A;">
-              <span class="text-white font-bold text-sm">3</span>
-            </div>
-            <h3 class="font-heading text-lg font-medium text-white">MI Semantic Data Model</h3>
-          </div>
-          <p class="text-sm text-white/50 font-bold uppercase tracking-wider mb-2">Platform-Native</p>
-          <p class="text-white/70 text-[15px] leading-relaxed">
-            A pre-built semantic layer created automatically by the MI Data Pipeline. Defines metrics (CPC, CTR, ROAS), dimensions, and calculations that Tableau Semantics and the agent use for accurate analytics.
-          </p>
+        <div>
+          <h4>Data Cloud Quickstart</h4>
+          <p>Foundation setup for Data Cloud with streaming ingestion, identity resolution, and calculated insights.</p>
+          <span class="cs-badge">Data Cloud</span>
         </div>
       </div>
 
-      <!-- Flow Diagram -->
-      <div class="fade-up mt-16 bg-white/5 border border-white/10 rounded-xl p-8 md:p-10">
-        <h3 class="font-heading text-xl font-medium text-white mb-6 text-center">End-to-End Grounding Flow</h3>
-        <div class="grid md:grid-cols-7 items-center gap-3 text-center">
-          <div class="bg-white/10 rounded-lg p-4">
-            <p class="text-accent text-xs font-bold uppercase tracking-wider mb-1">User Asks</p>
-            <p class="text-white/80 text-sm">"What's the CPC for Meta Ads?"</p>
-          </div>
-          <div class="text-white/30 text-2xl hidden md:block">&rarr;</div>
-          <div class="bg-white/10 rounded-lg p-4">
-            <p class="text-accent text-xs font-bold uppercase tracking-wider mb-1">Grounding</p>
-            <p class="text-white/80 text-sm">Data Prism + Studio + SDM enrich schema</p>
-          </div>
-          <div class="text-white/30 text-2xl hidden md:block">&rarr;</div>
-          <div class="bg-white/10 rounded-lg p-4">
-            <p class="text-accent text-xs font-bold uppercase tracking-wider mb-1">NL-to-SQL</p>
-            <p class="text-white/80 text-sm">Prompt template generates accurate query</p>
-          </div>
-          <div class="text-white/30 text-2xl hidden md:block">&rarr;</div>
-          <div class="bg-primary/20 border border-primary/30 rounded-lg p-4">
-            <p class="text-accent text-xs font-bold uppercase tracking-wider mb-1">Result</p>
-            <p class="text-white text-sm font-medium">Accurate CPC data</p>
-          </div>
+      <div class="coming-soon-card">
+        <div class="cs-icon">
+          <svg viewBox="0 0 24 24"><path d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+        </div>
+        <div>
+          <h4>Marketing Cloud Journeys</h4>
+          <p>Multi-channel journey templates with personalization, A/B testing, and engagement scoring.</p>
+          <span class="cs-badge">MC Engagement</span>
         </div>
       </div>
+
+      <div class="coming-soon-card">
+        <div class="cs-icon">
+          <svg viewBox="0 0 24 24"><path d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg>
+        </div>
+        <div>
+          <h4>Service Cloud Agent</h4>
+          <p>Agentforce agent for case resolution with knowledge base integration and escalation flows.</p>
+          <span class="cs-badge">Agentforce</span>
+        </div>
+      </div>
+
     </div>
-  </section>
 
-  <!-- NL-to-SQL Architecture -->
-  <section class="py-20 md:py-28 px-6 bg-white">
-    <div class="max-w-5xl mx-auto">
-      <div class="fade-up text-center mb-16">
-        <p class="text-primary text-sm font-bold tracking-widest uppercase mb-3">Core Engine</p>
-        <h2 class="font-heading text-3xl md:text-[44px] font-medium text-secondary leading-tight">NL-to-SQL: 3-Layer Translation</h2>
-        <p class="text-muted mt-4 max-w-2xl mx-auto text-lg">How the agent translates "show me Meta Ads CPC by campaign" into a valid, accurate SQL query.</p>
-      </div>
-
-      <div class="fade-up space-y-6">
-        <div class="bg-surface rounded-xl p-8 border border-border">
-          <div class="flex items-center gap-3 mb-4">
-            <span class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-sm font-bold">1</span>
-            <h3 class="font-heading text-lg font-medium text-secondary">Runtime Schema Discovery</h3>
-          </div>
-          <p class="text-muted text-[15px] leading-relaxed ml-11">
-            Before any query, the agent discovers what data exists on the org. The enhanced service returns tables, fields, types, record counts, <strong>and business descriptions</strong> from Data Prism — giving the LLM rich semantic context.
-          </p>
-        </div>
-
-        <div class="bg-surface rounded-xl p-8 border border-border">
-          <div class="flex items-center gap-3 mb-4">
-            <span class="w-8 h-8 rounded-full bg-accent text-white flex items-center justify-center text-sm font-bold">2</span>
-            <h3 class="font-heading text-lg font-medium text-secondary">Schema-Aware Prompt Template</h3>
-          </div>
-          <p class="text-muted text-[15px] leading-relaxed ml-11">
-            The discovered schema (with descriptions) is injected into a prompt template with SQL rules specific to Data Cloud — including ANSI SQL support, JOINs, window functions, and NULLIF() for safe division.
-          </p>
-        </div>
-
-        <div class="bg-surface rounded-xl p-8 border border-border">
-          <div class="flex items-center gap-3 mb-4">
-            <span class="w-8 h-8 rounded-full bg-success text-white flex items-center justify-center text-sm font-bold">3</span>
-            <h3 class="font-heading text-lg font-medium text-secondary">Validated Query Execution</h3>
-          </div>
-          <p class="text-muted text-[15px] leading-relaxed ml-11">
-            The generated SQL is executed against Data Cloud's Query API. On error, the ReAct planner recovers by passing the error back to the prompt for correction — an automatic retry loop.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Implementation Phases -->
-  <section id="phases" class="bg-surface py-20 md:py-28 px-6">
-    <div class="max-w-5xl mx-auto">
-      <div class="fade-up text-center mb-16">
-        <p class="text-primary text-sm font-bold tracking-widest uppercase mb-3">Implementation</p>
-        <h2 class="font-heading text-3xl md:text-[44px] font-medium text-secondary leading-tight">8-Phase Deployment</h2>
-        <p class="text-muted mt-4 max-w-2xl mx-auto text-lg">From foundation setup to demo-ready agent in ~2.5–3.5 hours.</p>
-      </div>
-
-      <div class="fade-up relative">
-        <!-- Timeline line -->
-        <div class="absolute left-[21px] top-4 bottom-4 w-0.5 bg-border hidden md:block"></div>
-
-        <div class="space-y-6">
-          <!-- Phase 1 -->
-          <div class="phase-card bg-white rounded-xl p-6 md:p-8 md:ml-10 shadow-sm timeline-dot">
-            <div class="flex flex-wrap items-center gap-3 mb-3">
-              <span class="text-xs font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">Phase 1</span>
-              <span class="text-xs text-muted">~45 min</span>
-              <span class="text-xs font-bold text-warning bg-warning/10 px-2 py-0.5 rounded-full">Manual + Automated</span>
-            </div>
-            <h3 class="font-heading text-lg font-medium text-secondary mb-2">Marketing Intelligence Foundation</h3>
-            <p class="text-muted text-sm">EMI Mock connectors, data pipeline, Einstein enrichment, campaign patterns, Tableau Next visualization, and MI goals.</p>
-          </div>
-
-          <!-- Phase 1.5 -->
-          <div class="phase-card bg-white rounded-xl p-6 md:p-8 md:ml-10 shadow-sm timeline-dot border-l-4 border-l-accent">
-            <div class="flex flex-wrap items-center gap-3 mb-3">
-              <span class="text-xs font-bold text-accent bg-accent/10 px-3 py-1 rounded-full">Phase 1.5 — NEW</span>
-              <span class="text-xs text-muted">~15 min</span>
-              <span class="text-xs font-bold text-warning bg-warning/10 px-2 py-0.5 rounded-full">Manual</span>
-            </div>
-            <h3 class="font-heading text-lg font-medium text-secondary mb-2">AI Grounding Layer</h3>
-            <p class="text-muted text-sm">Provision Einstein Data Prism, review descriptions in Metadata Studio, verify the Marketing Intelligence Semantic Data Model.</p>
-          </div>
-
-          <!-- Phase 2A -->
-          <div class="phase-card bg-white rounded-xl p-6 md:p-8 md:ml-10 shadow-sm timeline-dot">
-            <div class="flex flex-wrap items-center gap-3 mb-3">
-              <span class="text-xs font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">Phase 2A</span>
-              <span class="text-xs text-muted">Design</span>
-              <span class="text-xs font-bold text-secondary bg-secondary/10 px-2 py-0.5 rounded-full">Architecture</span>
-            </div>
-            <h3 class="font-heading text-lg font-medium text-secondary mb-2">NL-to-SQL Translation Architecture</h3>
-            <p class="text-muted text-sm">3-layer architecture design: runtime schema discovery, schema-aware prompt template, validated query execution with ReAct recovery.</p>
-          </div>
-
-          <!-- Phase 2 -->
-          <div class="phase-card bg-white rounded-xl p-6 md:p-8 md:ml-10 shadow-sm timeline-dot">
-            <div class="flex flex-wrap items-center gap-3 mb-3">
-              <span class="text-xs font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">Phase 2</span>
-              <span class="text-xs text-muted">~45 min</span>
-              <span class="text-xs font-bold text-success bg-success/10 px-2 py-0.5 rounded-full">Automated</span>
-            </div>
-            <h3 class="font-heading text-lg font-medium text-secondary mb-2">Apex Services & Prompt Templates</h3>
-            <p class="text-muted text-sm">6 Apex services (schema, data explorer, CRM query, campaign, broadcast flow, performance) + 2 prompt templates (NL-to-SQL, report generation).</p>
-          </div>
-
-          <!-- Phase 3 -->
-          <div class="phase-card bg-white rounded-xl p-6 md:p-8 md:ml-10 shadow-sm timeline-dot">
-            <div class="flex flex-wrap items-center gap-3 mb-3">
-              <span class="text-xs font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">Phase 3</span>
-              <span class="text-xs text-muted">~20 min</span>
-              <span class="text-xs font-bold text-success bg-success/10 px-2 py-0.5 rounded-full">Automated</span>
-            </div>
-            <h3 class="font-heading text-lg font-medium text-secondary mb-2">GenAI Functions</h3>
-            <p class="text-muted text-sm">8 functions mapping prompts and services to Agentforce: schema discovery, SQL generation, DMO query, CRM query, segment creation, broadcast flow trigger, performance analysis, report generation.</p>
-          </div>
-
-          <!-- Phase 4 -->
-          <div class="phase-card bg-white rounded-xl p-6 md:p-8 md:ml-10 shadow-sm timeline-dot">
-            <div class="flex flex-wrap items-center gap-3 mb-3">
-              <span class="text-xs font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">Phase 4</span>
-              <span class="text-xs text-muted">~10 min</span>
-              <span class="text-xs font-bold text-success bg-success/10 px-2 py-0.5 rounded-full">Automated</span>
-            </div>
-            <h3 class="font-heading text-lg font-medium text-secondary mb-2">GenAI Plugins</h3>
-            <p class="text-muted text-sm">3 plugins: Data Explorer, Campaign & Journey Ops, Performance Analyst — each with detailed orchestration instructions.</p>
-          </div>
-
-          <!-- Phase 5 -->
-          <div class="phase-card bg-white rounded-xl p-6 md:p-8 md:ml-10 shadow-sm timeline-dot">
-            <div class="flex flex-wrap items-center gap-3 mb-3">
-              <span class="text-xs font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">Phase 5</span>
-              <span class="text-xs text-muted">~15 min</span>
-              <span class="text-xs font-bold text-success bg-success/10 px-2 py-0.5 rounded-full">Automated</span>
-            </div>
-            <h3 class="font-heading text-lg font-medium text-secondary mb-2">Planner, Bot & Permissions</h3>
-            <p class="text-muted text-sm">ReAct planner with variable mappings, Marketing Copilot bot configuration, and permission set for agent access.</p>
-          </div>
-
-          <!-- Phase 6 -->
-          <div class="phase-card bg-white rounded-xl p-6 md:p-8 md:ml-10 shadow-sm timeline-dot">
-            <div class="flex flex-wrap items-center gap-3 mb-3">
-              <span class="text-xs font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">Phase 6</span>
-              <span class="text-xs text-muted">~10 min</span>
-              <span class="text-xs font-bold text-success bg-success/10 px-2 py-0.5 rounded-full">Automated</span>
-            </div>
-            <h3 class="font-heading text-lg font-medium text-secondary mb-2">Deployment Sequence</h3>
-            <p class="text-muted text-sm">Strict dependency-order deployment of all 24 components: Apex → Prompt Templates → Functions → Plugins → Planner → Bot → Permission Set.</p>
-          </div>
-
-          <!-- Phase 7 -->
-          <div class="phase-card bg-white rounded-xl p-6 md:p-8 md:ml-10 shadow-sm timeline-dot">
-            <div class="flex flex-wrap items-center gap-3 mb-3">
-              <span class="text-xs font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">Phase 7</span>
-              <span class="text-xs text-muted">~8 min</span>
-              <span class="text-xs font-bold text-warning bg-warning/10 px-2 py-0.5 rounded-full">Manual</span>
-            </div>
-            <h3 class="font-heading text-lg font-medium text-secondary mb-2">Default Paid Media Agent</h3>
-            <p class="text-muted text-sm">Enable Agentforce default agent and add Paid Media Topic from the asset library for campaign optimization.</p>
-          </div>
-
-          <!-- Phase 8 -->
-          <div class="phase-card bg-white rounded-xl p-6 md:p-8 md:ml-10 shadow-sm timeline-dot">
-            <div class="flex flex-wrap items-center gap-3 mb-3">
-              <span class="text-xs font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">Phase 8</span>
-              <span class="text-xs text-muted">~20 min</span>
-              <span class="text-xs font-bold text-warning bg-warning/10 px-2 py-0.5 rounded-full">Manual</span>
-            </div>
-            <h3 class="font-heading text-lg font-medium text-secondary mb-2">Validation, Quality & Demo Script</h3>
-            <p class="text-muted text-sm">Full validation checklist, metadata quality review, and a three-act demo script: Discovery → Insight → Action.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Components -->
-  <section id="components" class="py-20 md:py-28 px-6">
-    <div class="max-w-5xl mx-auto">
-      <div class="fade-up text-center mb-16">
-        <p class="text-primary text-sm font-bold tracking-widest uppercase mb-3">What's Included</p>
-        <h2 class="font-heading text-3xl md:text-[44px] font-medium text-secondary leading-tight">24 Deployable Components</h2>
-      </div>
-
-      <div class="fade-up grid md:grid-cols-2 gap-6">
-        <div class="component-pill bg-surface rounded-xl p-6 border border-border">
-          <div class="flex items-center justify-between mb-3">
-            <h3 class="font-heading text-base font-medium text-secondary">Apex Services</h3>
-            <span class="text-sm font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">6</span>
-          </div>
-          <p class="text-sm text-muted">MarketingSchemaService, MarketingDataExplorerService, MarketingCRMQueryService, MarketingCampaignService, MarketingBroadcastFlowService, MarketingPerformanceService</p>
-        </div>
-
-        <div class="component-pill bg-surface rounded-xl p-6 border border-border">
-          <div class="flex items-center justify-between mb-3">
-            <h3 class="font-heading text-base font-medium text-secondary">GenAI Functions</h3>
-            <span class="text-sm font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">8</span>
-          </div>
-          <p class="text-sm text-muted">Discover Schema, Generate SQL, Query DMOs, Query CRM, Create Segment, Trigger Broadcast Flow, Analyze Performance, Generate Report</p>
-        </div>
-
-        <div class="component-pill bg-surface rounded-xl p-6 border border-border">
-          <div class="flex items-center justify-between mb-3">
-            <h3 class="font-heading text-base font-medium text-secondary">GenAI Plugins</h3>
-            <span class="text-sm font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">3</span>
-          </div>
-          <p class="text-sm text-muted">Data Explorer, Campaign & Journey Ops, Performance Analyst — each with detailed orchestration instructions</p>
-        </div>
-
-        <div class="component-pill bg-surface rounded-xl p-6 border border-border">
-          <div class="flex items-center justify-between mb-3">
-            <h3 class="font-heading text-base font-medium text-secondary">Prompt Templates</h3>
-            <span class="text-sm font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">2</span>
-          </div>
-          <p class="text-sm text-muted">Marketing NL-to-SQL (schema-aware with business descriptions), Marketing Performance Report (executive summary)</p>
-        </div>
-
-        <div class="component-pill bg-surface rounded-xl p-6 border border-border">
-          <div class="flex items-center justify-between mb-3">
-            <h3 class="font-heading text-base font-medium text-secondary">Planner + Bot</h3>
-            <span class="text-sm font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">3</span>
-          </div>
-          <p class="text-sm text-muted">ReAct-based Marketing Intelligence Planner, Marketing Copilot Bot + BotVersion</p>
-        </div>
-
-        <div class="component-pill bg-surface rounded-xl p-6 border border-border">
-          <div class="flex items-center justify-between mb-3">
-            <h3 class="font-heading text-base font-medium text-secondary">Config & Permissions</h3>
-            <span class="text-sm font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">2</span>
-          </div>
-          <p class="text-sm text-muted">CSP Trusted Site (GitHub images), Marketing Copilot Access Permission Set</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Demo Script -->
-  <section id="demo" class="bg-secondary py-20 md:py-28 px-6">
-    <div class="max-w-5xl mx-auto">
-      <div class="fade-up text-center mb-16">
-        <p class="text-accent text-sm font-bold tracking-widest uppercase mb-3">Demo Script</p>
-        <h2 class="font-heading text-3xl md:text-[44px] font-medium text-white leading-tight">Three-Act Story</h2>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="fade-up">
-          <div class="bg-white/5 border border-white/10 rounded-xl p-8 h-full">
-            <p class="text-primary font-bold text-sm uppercase tracking-wider mb-4">Act 1 — Discovery</p>
-            <h3 class="font-heading text-xl font-medium text-white mb-5">Data Exploration</h3>
-            <div class="space-y-4">
-              <div class="bg-white/5 rounded-lg p-3">
-                <p class="text-white/80 text-sm italic">"Show me what marketing data we have across all channels"</p>
-              </div>
-              <div class="bg-white/5 rounded-lg p-3">
-                <p class="text-white/80 text-sm italic">"How many campaigns are running on Meta Ads?"</p>
-              </div>
-              <div class="bg-white/5 rounded-lg p-3">
-                <p class="text-white/80 text-sm italic">"What does our CRM Campaign data look like?"</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="fade-up fade-up-delay-1">
-          <div class="bg-white/5 border border-white/10 rounded-xl p-8 h-full">
-            <p class="text-accent font-bold text-sm uppercase tracking-wider mb-4">Act 2 — Insight</p>
-            <h3 class="font-heading text-xl font-medium text-white mb-5">Performance Analysis</h3>
-            <div class="space-y-4">
-              <div class="bg-white/5 rounded-lg p-3">
-                <p class="text-white/80 text-sm italic">"Compare performance across all our paid channels"</p>
-              </div>
-              <div class="bg-white/5 rounded-lg p-3">
-                <p class="text-white/80 text-sm italic">"Which campaigns have the highest CPC? Generate a report"</p>
-              </div>
-              <div class="bg-white/5 rounded-lg p-3">
-                <p class="text-white/80 text-sm italic">"Give me a unified view — both paid and owned"</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="fade-up fade-up-delay-2">
-          <div class="bg-white/5 border border-white/10 rounded-xl p-8 h-full">
-            <p class="text-success font-bold text-sm uppercase tracking-wider mb-4">Act 3 — Action</p>
-            <h3 class="font-heading text-xl font-medium text-white mb-5">Campaign Execution</h3>
-            <div class="space-y-4">
-              <div class="bg-white/5 rounded-lg p-3">
-                <p class="text-white/80 text-sm italic">"Create a segment for users who clicked on our top campaign"</p>
-              </div>
-              <div class="bg-white/5 rounded-lg p-3">
-                <p class="text-white/80 text-sm italic">"Now let's trigger a broadcast to that audience"</p>
-              </div>
-              <div class="bg-white/5 rounded-lg p-3">
-                <p class="text-white/80 text-sm italic">"Generate an executive summary of our marketing performance"</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Prerequisites -->
-  <section class="py-20 md:py-28 px-6">
-    <div class="max-w-5xl mx-auto">
-      <div class="fade-up text-center mb-16">
-        <p class="text-primary text-sm font-bold tracking-widest uppercase mb-3">Prerequisites</p>
-        <h2 class="font-heading text-3xl md:text-[44px] font-medium text-secondary leading-tight">What You'll Need</h2>
-      </div>
-
-      <div class="fade-up grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
-        <div class="flex items-center gap-3 bg-surface rounded-lg px-5 py-4">
-          <svg class="w-5 h-5 text-success shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          <span class="text-sm text-secondary">Salesforce org with Marketing Intelligence</span>
-        </div>
-        <div class="flex items-center gap-3 bg-surface rounded-lg px-5 py-4">
-          <svg class="w-5 h-5 text-success shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          <span class="text-sm text-secondary">Data Cloud enabled and provisioned</span>
-        </div>
-        <div class="flex items-center gap-3 bg-surface rounded-lg px-5 py-4">
-          <svg class="w-5 h-5 text-success shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          <span class="text-sm text-secondary">Agentforce features enabled</span>
-        </div>
-        <div class="flex items-center gap-3 bg-surface rounded-lg px-5 py-4">
-          <svg class="w-5 h-5 text-success shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          <span class="text-sm text-secondary">Einstein Data Prism enabled</span>
-        </div>
-        <div class="flex items-center gap-3 bg-surface rounded-lg px-5 py-4">
-          <svg class="w-5 h-5 text-success shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          <span class="text-sm text-secondary">MC Growth/Advanced provisioned</span>
-        </div>
-        <div class="flex items-center gap-3 bg-surface rounded-lg px-5 py-4">
-          <svg class="w-5 h-5 text-success shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          <span class="text-sm text-secondary">Tableau/CRM Analytics license</span>
-        </div>
-        <div class="flex items-center gap-3 bg-surface rounded-lg px-5 py-4">
-          <svg class="w-5 h-5 text-success shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          <span class="text-sm text-secondary">Admin permissions on org</span>
-        </div>
-        <div class="flex items-center gap-3 bg-surface rounded-lg px-5 py-4">
-          <svg class="w-5 h-5 text-success shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          <span class="text-sm text-secondary">Einstein Generative AI enabled</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Who This Is For -->
-  <section class="bg-primary py-20 md:py-28 px-6 text-center">
-    <div class="max-w-4xl mx-auto fade-up">
-      <h2 class="font-heading text-3xl md:text-[48px] font-medium text-white leading-tight mb-6">Who This Is For</h2>
-      <p class="text-white/70 text-lg mb-10 max-w-2xl mx-auto">This template is built for teams who want to see the art of the possible with Agentforce and Marketing Intelligence.</p>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-        <div class="bg-white/10 rounded-xl p-6">
-          <p class="text-white font-bold text-sm">Solutions Engineers</p>
-          <p class="text-white/60 text-xs mt-2">Demonstrating Agentforce + MI capabilities</p>
-        </div>
-        <div class="bg-white/10 rounded-xl p-6">
-          <p class="text-white font-bold text-sm">Architects</p>
-          <p class="text-white/60 text-xs mt-2">Evaluating Agentforce with Data Cloud & MC</p>
-        </div>
-        <div class="bg-white/10 rounded-xl p-6">
-          <p class="text-white font-bold text-sm">Partners</p>
-          <p class="text-white/60 text-xs mt-2">Building marketing-focused AI solutions</p>
-        </div>
-        <div class="bg-white/10 rounded-xl p-6">
-          <p class="text-white font-bold text-sm">Admins & Devs</p>
-          <p class="text-white/60 text-xs mt-2">Reference for custom Agentforce agents</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Resources -->
-  <section id="resources" class="py-20 md:py-28 px-6">
-    <div class="max-w-5xl mx-auto">
-      <div class="fade-up text-center mb-16">
-        <p class="text-primary text-sm font-bold tracking-widest uppercase mb-3">Resources</p>
-        <h2 class="font-heading text-3xl md:text-[44px] font-medium text-secondary leading-tight">Additional Assets</h2>
-        <p class="text-muted mt-4 max-w-2xl mx-auto text-lg">Companion materials for presenting and scoping the Agentforce for Marketing solution.</p>
-      </div>
-
-      <div class="fade-up grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-        <!-- Interactive Deck -->
-        <a href="agentforce-marketing-interactive.html" class="group block bg-white rounded-2xl border border-border overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-          <div class="bg-gradient-to-br from-secondary to-primary p-8 text-white">
-            <div class="w-14 h-14 rounded-xl bg-white/15 flex items-center justify-center mb-5">
-              <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-              </svg>
-            </div>
-            <h3 class="font-heading text-2xl font-medium">Interactive Slide Deck</h3>
-          </div>
-          <div class="p-8">
-            <p class="text-muted leading-relaxed text-[15px] mb-6">10-slide full-screen presentation with keyboard, scroll, and touch navigation. Ideal for live stakeholder walkthroughs and screen sharing sessions.</p>
-            <div class="flex flex-wrap gap-2 mb-6">
-              <span class="text-xs bg-surface text-secondary px-2.5 py-1 rounded-full">10 Slides</span>
-              <span class="text-xs bg-surface text-secondary px-2.5 py-1 rounded-full">Keyboard Nav</span>
-              <span class="text-xs bg-surface text-secondary px-2.5 py-1 rounded-full">Touch Support</span>
-              <span class="text-xs bg-surface text-secondary px-2.5 py-1 rounded-full">Progress Bar</span>
-            </div>
-            <span class="text-primary font-bold text-sm group-hover:underline">Open Presentation &rarr;</span>
-          </div>
-        </a>
-
-        <!-- Scoping Template -->
-        <a href="agentforce-marketing-scoping-template.html" class="group block bg-white rounded-2xl border border-border overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-          <div class="bg-gradient-to-br from-accent to-primary p-8 text-white">
-            <div class="w-14 h-14 rounded-xl bg-white/15 flex items-center justify-center mb-5">
-              <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
-              </svg>
-            </div>
-            <h3 class="font-heading text-2xl font-medium">Demo Scoping Template</h3>
-          </div>
-          <div class="p-8">
-            <p class="text-muted leading-relaxed text-[15px] mb-6">Interactive 6-section assessment form for scoping your Agentforce for Marketing demo — covering org environment, data sources, capabilities, and timeline.</p>
-            <div class="flex flex-wrap gap-2 mb-6">
-              <span class="text-xs bg-surface text-secondary px-2.5 py-1 rounded-full">6 Sections</span>
-              <span class="text-xs bg-surface text-secondary px-2.5 py-1 rounded-full">Interactive Form</span>
-              <span class="text-xs bg-surface text-secondary px-2.5 py-1 rounded-full">Org Assessment</span>
-              <span class="text-xs bg-surface text-secondary px-2.5 py-1 rounded-full">Timeline</span>
-            </div>
-            <span class="text-primary font-bold text-sm group-hover:underline">Open Scoping Tool &rarr;</span>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Version Info -->
-  <section class="bg-surface py-12 px-6 border-t border-border">
-    <div class="max-w-5xl mx-auto">
-      <div class="fade-up">
-        <h3 class="font-heading text-lg font-medium text-secondary mb-4">v2 Changes from v1</h3>
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm">
-            <thead>
-              <tr class="border-b-2 border-border">
-                <th class="text-left py-3 pr-6 text-secondary font-bold">Area</th>
-                <th class="text-left py-3 pr-6 text-muted">v1</th>
-                <th class="text-left py-3 text-secondary font-bold">v2</th>
-              </tr>
-            </thead>
-            <tbody class="text-muted">
-              <tr class="border-b border-border"><td class="py-2.5 pr-6 font-medium text-secondary">AI Grounding</td><td class="py-2.5 pr-6">None</td><td class="py-2.5 text-success font-medium">Data Prism + Metadata Studio + SDM</td></tr>
-              <tr class="border-b border-border"><td class="py-2.5 pr-6 font-medium text-secondary">Functions</td><td class="py-2.5 pr-6">7 (claimed 8)</td><td class="py-2.5 text-success font-medium">8 (added Trigger Broadcast Flow)</td></tr>
-              <tr class="border-b border-border"><td class="py-2.5 pr-6 font-medium text-secondary">Performance Service</td><td class="py-2.5 pr-6">Hardcoded table name</td><td class="py-2.5 text-success font-medium">Accepts table name from planner</td></tr>
-              <tr class="border-b border-border"><td class="py-2.5 pr-6 font-medium text-secondary">Campaign Plugin</td><td class="py-2.5 pr-6">Segment creation only</td><td class="py-2.5 text-success font-medium">+ Broadcast Flow trigger (e2e campaigns)</td></tr>
-              <tr class="border-b border-border"><td class="py-2.5 pr-6 font-medium text-secondary">Segment Target DMO</td><td class="py-2.5 pr-6">Inconsistent</td><td class="py-2.5 text-success font-medium">UnifiedIndividual__dlm for MC Growth</td></tr>
-              <tr class="border-b border-border"><td class="py-2.5 pr-6 font-medium text-secondary">Schema Discovery</td><td class="py-2.5 pr-6">Raw table/field names</td><td class="py-2.5 text-success font-medium">Enriched with SDM business descriptions</td></tr>
-              <tr><td class="py-2.5 pr-6 font-medium text-secondary">Metadata Quality</td><td class="py-2.5 pr-6">Not addressed</td><td class="py-2.5 text-success font-medium">Dedicated checklist + best practices</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-white border-t border-border py-12 px-6">
-    <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+  <footer>
+    <div class="footer-inner">
       <div>
-        <img src="https://a.sfdcstatic.com/shared/images/c360-nav/salesforce-with-type-logo.svg" alt="Salesforce" class="h-6 mb-3" />
-        <p class="text-sm text-muted">Agentforce for Marketing — Solutions Template v2</p>
-        <p class="text-sm text-muted">Built by <a href="https://github.com/sunny-salesforce" class="text-primary hover:underline">sunny-salesforce</a> with <a href="https://meshmesh.io" class="text-primary hover:underline">MeshMesh</a></p>
+        <img src="https://a.sfdcstatic.com/shared/images/c360-nav/salesforce-with-type-logo.svg" alt="Salesforce" style="height: 20px; margin-bottom: .5rem; display: block;">
+        <p>Built by <a href="https://github.com/sunny-salesforce">sunny-salesforce</a> with <a href="https://meshmesh.io">MeshMesh</a></p>
       </div>
-      <div class="flex gap-6 text-sm text-muted">
-        <a href="#overview" class="hover:text-primary transition-colors">Overview</a>
-        <a href="#capabilities" class="hover:text-primary transition-colors">Capabilities</a>
-        <a href="#architecture" class="hover:text-primary transition-colors">Architecture</a>
-        <a href="#phases" class="hover:text-primary transition-colors">Phases</a>
-        <a href="#resources" class="hover:text-primary transition-colors">Resources</a>
-        <a href="https://github.com/sunny-salesforce/af4m-template" class="hover:text-primary transition-colors">GitHub &nearr;</a>
+      <div class="footer-links">
+        <a href="https://github.com/sunny-salesforce/af4m-template">View on GitHub</a>
       </div>
     </div>
   </footer>
 
-  <!-- Scroll Animation Observer -->
   <script>
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
+      entries.forEach((entry, i) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
+    }, { threshold: 0.05 });
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
   </script>
+
 </body>
 </html>
