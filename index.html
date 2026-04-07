@@ -4,96 +4,275 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Agentforce for Marketing — Solutions Template</title>
-  <script src="https://assets.meshmesh.io/system/tailwindcss-browser-4.js"></script>
-  <style type="text/tailwindcss">
-    @theme {
-      --color-primary: #0176D3;
-      --color-secondary: #032D60;
-      --color-accent: #0D9DDA;
-      --color-surface: #F4F6F9;
-      --color-muted: #444444;
-      --color-border: #D8DDE6;
+  <link rel="preconnect" href="https://a.sfdcstatic.com">
+  <style>
+    @font-face { font-family: 'Salesforce Sans'; src: url('https://a.sfdcstatic.com/shared/fonts/salesforce-sans/SalesforceSans-Regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+    @font-face { font-family: 'Salesforce Sans'; src: url('https://a.sfdcstatic.com/shared/fonts/salesforce-sans/SalesforceSans-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+    @font-face { font-family: 'ITC Avant Garde'; src: url('https://a.sfdcstatic.com/shared/fonts/avant-garde/AvantGardeForSalesforceW05-Dm.woff2') format('woff2'); font-display: swap; }
+
+    :root {
+      --primary: #0176D3;
+      --secondary: #032D60;
+      --accent: #0D9DDA;
+      --surface: #F4F6F9;
+      --muted: #6B7280;
+      --border: #D8DDE6;
+      --text: #032D60;
     }
-    @font-face { font-family: 'Salesforce Sans'; src: url('https://a.sfdcstatic.com/shared/fonts/salesforce-sans/SalesforceSans-Regular.woff2') format('woff2'); font-weight: 400; }
-    @font-face { font-family: 'Salesforce Sans'; src: url('https://a.sfdcstatic.com/shared/fonts/salesforce-sans/SalesforceSans-Bold.woff2') format('woff2'); font-weight: 700; }
-    @font-face { font-family: 'ITC Avant Garde'; src: url('https://a.sfdcstatic.com/shared/fonts/avant-garde/AvantGardeForSalesforceW05-Dm.woff2') format('woff2'); }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Salesforce Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: var(--text); background: #fff; -webkit-font-smoothing: antialiased; }
+
+    /* ─── NAV ─── */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(3,45,96,.97); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,.08); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; height: 60px; display: flex; align-items: center; gap: 1rem; }
+    .nav-logo { height: 26px; filter: brightness(0) invert(1); }
+    .nav-divider { width: 1px; height: 20px; background: rgba(255,255,255,.25); }
+    .nav-label { color: rgba(255,255,255,.7); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
+    .nav-links { margin-left: auto; display: flex; gap: .5rem; }
+    .nav-links a { color: rgba(255,255,255,.7); font-size: 13px; padding: .4rem .75rem; border-radius: 6px; text-decoration: none; transition: all .2s; }
+    .nav-links a:hover { color: #fff; background: rgba(255,255,255,.1); }
+
+    /* ─── HERO ─── */
+    .hero { padding: 140px 2rem 80px; background: linear-gradient(160deg, var(--secondary) 0%, #0a3d72 40%, var(--primary) 100%); position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -40%; right: -20%; width: 800px; height: 800px; background: radial-gradient(circle, rgba(13,157,218,.15) 0%, transparent 70%); }
+    .hero::after { content: ''; position: absolute; bottom: -30%; left: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(1,118,211,.12) 0%, transparent 70%); }
+    .hero-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; text-align: center; }
+    .hero-badge { display: inline-flex; align-items: center; gap: .5rem; padding: .4rem 1rem; border-radius: 999px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.15); color: rgba(255,255,255,.85); font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 1.5rem; }
+    .hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #2E844A; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
+    .hero h1 { font-family: 'ITC Avant Garde', 'Salesforce Sans', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); color: #fff; line-height: 1.1; margin-bottom: 1.25rem; }
+    .hero p { font-size: clamp(1rem, 2vw, 1.25rem); color: rgba(255,255,255,.8); max-width: 640px; margin: 0 auto 2.5rem; line-height: 1.6; }
+
+    /* ─── STATS ─── */
+    .stats { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+    .stat { text-align: center; min-width: 100px; }
+    .stat-value { font-family: 'ITC Avant Garde', sans-serif; font-size: 2rem; font-weight: 700; color: #fff; }
+    .stat-label { font-size: 11px; color: rgba(255,255,255,.6); letter-spacing: .5px; text-transform: uppercase; margin-top: .15rem; }
+
+    /* ─── SECTION ─── */
+    .section { max-width: 1200px; margin: 0 auto; padding: 5rem 2rem; }
+    .section-header { text-align: center; margin-bottom: 3rem; }
+    .section-header h2 { font-family: 'ITC Avant Garde', sans-serif; font-size: 2rem; color: var(--secondary); margin-bottom: .5rem; }
+    .section-header p { color: var(--muted); font-size: 1.05rem; max-width: 560px; margin: 0 auto; }
+
+    /* ─── PREVIEW CARDS ─── */
+    .previews { display: grid; gap: 2rem; }
+    .preview-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: all .35s cubic-bezier(.25,.8,.25,1); cursor: pointer; text-decoration: none; color: inherit; display: block; }
+    .preview-card:hover { box-shadow: 0 20px 60px rgba(3,45,96,.12); transform: translateY(-4px); border-color: var(--primary); }
+
+    .preview-browser { background: var(--surface); border-bottom: 1px solid var(--border); padding: .6rem 1rem; display: flex; align-items: center; gap: .5rem; }
+    .browser-dots { display: flex; gap: 5px; }
+    .browser-dots span { width: 10px; height: 10px; border-radius: 50%; }
+    .browser-dots span:nth-child(1) { background: #FF5F57; }
+    .browser-dots span:nth-child(2) { background: #FEBC2E; }
+    .browser-dots span:nth-child(3) { background: #28C840; }
+    .browser-url { flex: 1; margin-left: .5rem; padding: .3rem .75rem; background: #fff; border: 1px solid var(--border); border-radius: 6px; font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .preview-iframe-wrap { position: relative; height: 340px; overflow: hidden; background: var(--surface); }
+    .preview-iframe-wrap iframe { width: 200%; height: 200%; transform: scale(.5); transform-origin: top left; border: none; pointer-events: none; }
+    .preview-iframe-wrap::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60px; background: linear-gradient(transparent, white); pointer-events: none; }
+
+    .preview-body { padding: 1.5rem 1.75rem; display: flex; align-items: center; gap: 1.25rem; }
+    .preview-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .preview-icon svg { width: 24px; height: 24px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .preview-info { flex: 1; }
+    .preview-info h3 { font-size: 1.1rem; font-weight: 700; color: var(--secondary); margin-bottom: .2rem; }
+    .preview-info p { font-size: .85rem; color: var(--muted); line-height: 1.45; }
+    .preview-arrow { width: 36px; height: 36px; border-radius: 50%; background: var(--surface); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all .25s; }
+    .preview-card:hover .preview-arrow { background: var(--primary); }
+    .preview-arrow svg { width: 16px; height: 16px; stroke: var(--muted); fill: none; stroke-width: 2; transition: stroke .25s; }
+    .preview-card:hover .preview-arrow svg { stroke: #fff; }
+
+    /* Colors per card */
+    .preview-card[data-theme="blue"] .preview-icon { background: linear-gradient(135deg, var(--primary), var(--accent)); }
+    .preview-card[data-theme="dark"] .preview-icon { background: linear-gradient(135deg, var(--secondary), var(--primary)); }
+    .preview-card[data-theme="teal"] .preview-icon { background: linear-gradient(135deg, var(--accent), var(--primary)); }
+
+    /* ─── ARCHITECTURE ─── */
+    .arch-section { background: var(--secondary); color: #fff; padding: 5rem 2rem; }
+    .arch-inner { max-width: 1200px; margin: 0 auto; }
+    .arch-inner h2 { font-family: 'ITC Avant Garde', sans-serif; font-size: 2rem; text-align: center; margin-bottom: .5rem; }
+    .arch-inner > p { text-align: center; color: rgba(255,255,255,.65); margin-bottom: 3rem; font-size: 1.05rem; }
+    .arch-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; }
+    .arch-card { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 1.5rem; transition: background .2s; }
+    .arch-card:hover { background: rgba(255,255,255,.1); }
+    .arch-card-num { font-family: 'ITC Avant Garde', sans-serif; font-size: 2rem; font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: .5rem; }
+    .arch-card h3 { font-size: .95rem; font-weight: 700; margin-bottom: .35rem; }
+    .arch-card p { font-size: .8rem; color: rgba(255,255,255,.6); line-height: 1.5; }
+
+    /* ─── FOOTER ─── */
+    footer { background: var(--surface); border-top: 1px solid var(--border); padding: 2.5rem 2rem; text-align: center; }
+    footer p { font-size: .85rem; color: var(--muted); }
+    footer a { color: var(--primary); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .stats { gap: 1.25rem; }
+      .stat-value { font-size: 1.5rem; }
+      .preview-iframe-wrap { height: 220px; }
+    }
+
+    /* ─── ANIMATIONS ─── */
+    .fade-up { opacity: 0; transform: translateY(24px); transition: all .6s cubic-bezier(.25,.8,.25,1); }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
   </style>
 </head>
-<body class="bg-white text-secondary" style="font-family: 'Salesforce Sans', Arial, sans-serif;">
+<body>
 
-  <!-- Header -->
-  <header class="bg-secondary text-white">
-    <div class="max-w-5xl mx-auto px-6 py-8 flex items-center gap-4">
-      <img src="https://a.sfdcstatic.com/shared/images/c360-nav/salesforce-with-type-logo.svg" alt="Salesforce" class="h-8 brightness-0 invert">
-      <div class="h-6 w-px bg-white/30"></div>
-      <span class="text-sm font-bold tracking-wide uppercase opacity-80">Solutions Template</span>
+  <!-- Nav -->
+  <nav>
+    <div class="nav-inner">
+      <img src="https://a.sfdcstatic.com/shared/images/c360-nav/salesforce-with-type-logo.svg" alt="Salesforce" class="nav-logo">
+      <div class="nav-divider"></div>
+      <span class="nav-label">Solutions Template</span>
+      <div class="nav-links">
+        <a href="#presentations">Presentations</a>
+        <a href="#architecture">Architecture</a>
+        <a href="https://github.com/sunny-salesforce/af4m-template" target="_blank">GitHub ↗</a>
+      </div>
     </div>
-  </header>
+  </nav>
 
   <!-- Hero -->
-  <section class="bg-gradient-to-br from-secondary via-secondary to-primary text-white py-20">
-    <div class="max-w-5xl mx-auto px-6 text-center">
-      <h1 class="text-4xl md:text-5xl font-bold mb-4" style="font-family: 'ITC Avant Garde', sans-serif;">Agentforce for Marketing</h1>
-      <p class="text-lg md:text-xl opacity-90 max-w-2xl mx-auto">An org-agnostic, deployable blueprint for building a custom Agentforce Marketing Agent on Salesforce — combining Data Cloud, Marketing Cloud, and CRM into a single AI-powered interface.</p>
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge"><span class="hero-badge-dot"></span> Org-Agnostic Template</div>
+      <h1>Agentforce for<br>Marketing</h1>
+      <p>A deployable blueprint for building a custom Agentforce Marketing Agent — combining Data Cloud, Marketing Cloud, and CRM into a single AI-powered conversational interface.</p>
+      <div class="stats">
+        <div class="stat"><div class="stat-value">24</div><div class="stat-label">Components</div></div>
+        <div class="stat"><div class="stat-value">3</div><div class="stat-label">Plugins</div></div>
+        <div class="stat"><div class="stat-value">8</div><div class="stat-label">GenAI Functions</div></div>
+        <div class="stat"><div class="stat-value">6</div><div class="stat-label">Apex Services</div></div>
+      </div>
     </div>
   </section>
 
-  <!-- Cards -->
-  <section class="max-w-5xl mx-auto px-6 -mt-10 pb-20">
-    <div class="grid md:grid-cols-3 gap-6">
+  <!-- Presentations -->
+  <section class="section" id="presentations">
+    <div class="section-header">
+      <h2>Explore the Template</h2>
+      <p>Three interactive assets to understand, present, and scope the Agentforce for Marketing solution.</p>
+    </div>
+    <div class="previews">
 
       <!-- Scrollable Page -->
-      <a href="agentforce-marketing-scrollable.html" class="group bg-white rounded-xl shadow-lg hover:shadow-2xl border border-border transition-all duration-300 hover:-translate-y-1 overflow-hidden flex flex-col">
-        <div class="bg-gradient-to-br from-primary to-accent p-6 text-white">
-          <div class="w-12 h-12 rounded-lg bg-white/20 flex items-center justify-center mb-4">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v12a2 2 0 01-2 2zM12 10v4m0 0l-2-2m2 2l2-2"/></svg>
-          </div>
-          <h2 class="text-xl font-bold">Scrollable Page</h2>
+      <a href="agentforce-marketing-scrollable.html" class="preview-card fade-up" data-theme="blue">
+        <div class="preview-browser">
+          <div class="browser-dots"><span></span><span></span><span></span></div>
+          <div class="browser-url">agentforce-marketing-scrollable.html</div>
         </div>
-        <div class="p-6 flex-1 flex flex-col">
-          <p class="text-muted text-sm flex-1">Long-form one-pager with animated sections, scroll-triggered reveals, architecture diagrams, and the complete implementation timeline.</p>
-          <div class="mt-4 text-primary font-bold text-sm group-hover:underline">Open Presentation →</div>
+        <div class="preview-iframe-wrap">
+          <iframe src="agentforce-marketing-scrollable.html" loading="lazy" sandbox="allow-same-origin" title="Scrollable Page Preview"></iframe>
+        </div>
+        <div class="preview-body">
+          <div class="preview-icon">
+            <svg viewBox="0 0 24 24"><path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v12a2 2 0 01-2 2z"/><path d="M12 10v4m-2-2l2 2 2-2"/></svg>
+          </div>
+          <div class="preview-info">
+            <h3>Scrollable Presentation</h3>
+            <p>Long-form one-pager with animated sections, scroll-triggered reveals, architecture diagrams, timeline, and complete demo script.</p>
+          </div>
+          <div class="preview-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
         </div>
       </a>
 
       <!-- Interactive Deck -->
-      <a href="agentforce-marketing-interactive.html" class="group bg-white rounded-xl shadow-lg hover:shadow-2xl border border-border transition-all duration-300 hover:-translate-y-1 overflow-hidden flex flex-col">
-        <div class="bg-gradient-to-br from-secondary to-primary p-6 text-white">
-          <div class="w-12 h-12 rounded-lg bg-white/20 flex items-center justify-center mb-4">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-          </div>
-          <h2 class="text-xl font-bold">Interactive Deck</h2>
+      <a href="agentforce-marketing-interactive.html" class="preview-card fade-up" data-theme="dark">
+        <div class="preview-browser">
+          <div class="browser-dots"><span></span><span></span><span></span></div>
+          <div class="browser-url">agentforce-marketing-interactive.html</div>
         </div>
-        <div class="p-6 flex-1 flex flex-col">
-          <p class="text-muted text-sm flex-1">10-slide full-screen presentation with keyboard, scroll, and touch navigation. Ideal for live stakeholder walkthroughs and screen sharing.</p>
-          <div class="mt-4 text-primary font-bold text-sm group-hover:underline">Open Presentation →</div>
+        <div class="preview-iframe-wrap">
+          <iframe src="agentforce-marketing-interactive.html" loading="lazy" sandbox="allow-same-origin" title="Interactive Deck Preview"></iframe>
+        </div>
+        <div class="preview-body">
+          <div class="preview-icon">
+            <svg viewBox="0 0 24 24"><path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </div>
+          <div class="preview-info">
+            <h3>Interactive Slide Deck</h3>
+            <p>10-slide full-screen presentation with keyboard, scroll, and touch navigation — perfect for live stakeholder walkthroughs.</p>
+          </div>
+          <div class="preview-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
         </div>
       </a>
 
       <!-- Scoping Template -->
-      <a href="agentforce-marketing-scoping-template.html" class="group bg-white rounded-xl shadow-lg hover:shadow-2xl border border-border transition-all duration-300 hover:-translate-y-1 overflow-hidden flex flex-col">
-        <div class="bg-gradient-to-br from-accent to-primary p-6 text-white">
-          <div class="w-12 h-12 rounded-lg bg-white/20 flex items-center justify-center mb-4">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
-          </div>
-          <h2 class="text-xl font-bold">Scoping Template</h2>
+      <a href="agentforce-marketing-scoping-template.html" class="preview-card fade-up" data-theme="teal">
+        <div class="preview-browser">
+          <div class="browser-dots"><span></span><span></span><span></span></div>
+          <div class="browser-url">agentforce-marketing-scoping-template.html</div>
         </div>
-        <div class="p-6 flex-1 flex flex-col">
-          <p class="text-muted text-sm flex-1">Interactive 6-section assessment form covering org environment, data sources, demo capabilities, agent customization, storyline, and timeline.</p>
-          <div class="mt-4 text-primary font-bold text-sm group-hover:underline">Open Scoping Tool →</div>
+        <div class="preview-iframe-wrap">
+          <iframe src="agentforce-marketing-scoping-template.html" loading="lazy" sandbox="allow-same-origin" title="Scoping Template Preview"></iframe>
+        </div>
+        <div class="preview-body">
+          <div class="preview-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><path d="M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/><path d="M9 14l2 2 4-4"/></svg>
+          </div>
+          <div class="preview-info">
+            <h3>Scoping Template</h3>
+            <p>Interactive 6-section assessment covering org environment, data sources, capabilities, customization, storyline, and timeline.</p>
+          </div>
+          <div class="preview-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
         </div>
       </a>
 
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="bg-surface border-t border-border py-8">
-    <div class="max-w-5xl mx-auto px-6 text-center text-sm text-muted">
-      <p>Agentforce for Marketing — Solutions Template</p>
-      <p class="mt-1 opacity-70">Built with <a href="https://meshmesh.io" class="text-primary hover:underline">MeshMesh</a></p>
+  <!-- Architecture -->
+  <section class="arch-section" id="architecture">
+    <div class="arch-inner">
+      <h2>Architecture at a Glance</h2>
+      <p>A 3-layer AI agent built on Agentforce with Data Cloud grounding.</p>
+      <div class="arch-grid">
+        <div class="arch-card fade-up">
+          <div class="arch-card-num">01</div>
+          <h3>NL-to-SQL Engine</h3>
+          <p>3-layer architecture — schema discovery, prompt-based SQL generation, validated execution with ReAct error recovery.</p>
+        </div>
+        <div class="arch-card fade-up">
+          <div class="arch-card-num">02</div>
+          <h3>AI Grounding Layer</h3>
+          <p>Einstein Data Prism, Metadata Studio, and MI Semantic Data Model for business-language query accuracy.</p>
+        </div>
+        <div class="arch-card fade-up">
+          <div class="arch-card-num">03</div>
+          <h3>3 Plugin System</h3>
+          <p>Data Explorer, Campaign & Journey Ops, and Performance Analyst — each with dedicated GenAI Functions.</p>
+        </div>
+        <div class="arch-card fade-up">
+          <div class="arch-card-num">04</div>
+          <h3>ReAct Planner</h3>
+          <p>Reason-Act-Observe loop with variable persistence for multi-turn conversations and self-correcting queries.</p>
+        </div>
+      </div>
     </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>Agentforce for Marketing — Solutions Template</p>
+    <p style="margin-top: .4rem;">Built with <a href="https://meshmesh.io">MeshMesh</a> · <a href="https://github.com/sunny-salesforce/af4m-template">View on GitHub</a></p>
   </footer>
+
+  <!-- Scroll Animations -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 120);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
 
 </body>
 </html>
