@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agentforce for Marketing — Solutions Template</title>
+  <script src="https://assets.meshmesh.io/system/tailwindcss-browser-4.js"></script>
+  <style>
+    @font-face { font-family: 'Salesforce Sans'; src: url('https://a.sfdcstatic.com/shared/fonts/salesforce-sans/SalesforceSans-Regular.woff2') format('woff2'); font-weight: 400; }
+    @font-face { font-family: 'Salesforce Sans'; src: url('https://a.sfdcstatic.com/shared/fonts/salesforce-sans/SalesforceSans-Bold.woff2') format('woff2'); font-weight: 700; }
+    @font-face { font-family: 'ITC Avant Garde'; src: url('https://a.sfdcstatic.com/shared/fonts/avant-garde/AvantGardeForSalesforceW05-Dm.woff2') format('woff2'); font-weight: 500; }
+  </style>
+  <style type="text/tailwindcss">
+    @theme {
+      --color-primary: #0176D3;
+      --color-secondary: #032D60;
+      --color-accent: #0D9DDA;
+      --color-surface: #F4F6F9;
+      --color-muted: #444444;
+      --color-border: #D8DDE6;
+      --color-success: #2E844A;
+      --color-warning: #FE9339;
+      --color-error: #EA001E;
+      --font-sans: 'Salesforce Sans', Arial, Helvetica, sans-serif;
+      --font-heading: 'ITC Avant Garde', 'Salesforce Sans', Arial, sans-serif;
+    }
+  </style>
+  <style>
+    html, body { margin: 0; padding: 0; overflow: hidden; height: 100%; width: 100%; }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transform: translateY(60px) scale(0.97);
+      transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+      padding: 40px;
+      overflow-y: auto;
+    }
+    .slide.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: all;
+      z-index: 10;
+    }
+    .slide.prev {
+      opacity: 0;
+      transform: translateY(-60px) scale(0.97);
+    }
+
+    .slide-content > * {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .slide.active .slide-content > * {
+      animation: stagger-in 0.5s ease-out forwards;
+    }
+    .slide.active .slide-content > *:nth-child(1) { animation-delay: 0.15s; }
+    .slide.active .slide-content > *:nth-child(2) { animation-delay: 0.25s; }
+    .slide.active .slide-content > *:nth-child(3) { animation-delay: 0.35s; }
+    .slide.active .slide-content > *:nth-child(4) { animation-delay: 0.45s; }
+    .slide.active .slide-content > *:nth-child(5) { animation-delay: 0.55s; }
+    .slide.active .slide-content > *:nth-child(6) { animation-delay: 0.65s; }
+    .slide.active .slide-content > *:nth-child(7) { animation-delay: 0.75s; }
+    .slide.active .slide-content > *:nth-child(8) { animation-delay: 0.85s; }
+
+    @keyframes stagger-in {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(10px, -15px); }
+      50% { transform: translate(-5px, -25px); }
+      75% { transform: translate(-15px, -10px); }
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.15;
+      animation: float 12s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(1, 118, 211, 0.4); }
+      50% { box-shadow: 0 0 0 8px rgba(1, 118, 211, 0); }
+    }
+    .pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+
+    .progress-bar {
+      transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .nav-dot {
+      transition: all 0.3s ease;
+    }
+    .nav-dot.active {
+      background: #0176D3;
+      transform: scale(1.4);
+    }
+    .nav-dot:hover {
+      background: #0D9DDA;
+      transform: scale(1.2);
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+    .typewriter {
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid #0D9DDA;
+      animation: typing 2s steps(40, end), blink-caret 0.75s step-end infinite;
+    }
+    @keyframes blink-caret {
+      from, to { border-color: transparent; }
+      50% { border-color: #0D9DDA; }
+    }
+
+    .card-hover {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(1, 118, 211, 0.12);
+    }
+
+    .glow-border {
+      position: relative;
+    }
+    .glow-border::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      background: linear-gradient(135deg, #0176D3, #0D9DDA, #2E844A, #0176D3);
+      background-size: 300% 300%;
+      animation: glow-shift 4s ease infinite;
+      z-index: -1;
+      opacity: 0.6;
+    }
+    @keyframes glow-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+  </style>
+</head>
+<body class="font-sans text-[#080707] bg-secondary">
+
+  <!-- Top Bar -->
+  <div class="fixed top-0 left-0 right-0 z-50 bg-secondary/90 backdrop-blur-md border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-6 flex items-center justify-between h-14">
+      <img src="https://a.sfdcstatic.com/shared/images/c360-nav/salesforce-with-type-logo.svg" alt="Salesforce" class="h-5 opacity-80" />
+      <div class="flex items-center gap-4">
+        <span class="text-white/40 text-xs font-medium" id="slideCounter">1 / 10</span>
+        <div class="hidden md:flex items-center gap-2" id="navDots"></div>
+      </div>
+    </div>
+    <!-- Progress Bar -->
+    <div class="h-0.5 bg-white/5">
+      <div class="progress-bar h-full bg-gradient-to-r from-primary to-accent" id="progressBar" style="width: 10%"></div>
+    </div>
+  </div>
+
+  <!-- Slide Container -->
+  <div class="relative w-full h-full pt-14" id="slideContainer">
+
+    <!-- SLIDE 1: Title -->
+    <div class="slide active" data-bg="dark" id="slide-0">
+      <div class="orb w-96 h-96 bg-primary top-10 left-[-100px]" style="animation-delay: 0s;"></div>
+      <div class="orb w-80 h-80 bg-accent bottom-10 right-[-50px]" style="animation-delay: -4s;"></div>
+      <div class="orb w-64 h-64 bg-success top-1/2 left-1/2" style="animation-delay: -8s;"></div>
+      <div class="slide-content text-center max-w-4xl">
+        <p class="text-accent text-sm font-bold tracking-[0.2em] uppercase mb-6">Solutions Template</p>
+        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-medium text-white leading-[1.05] tracking-tight mb-8">
+          Agentforce<br><span class="bg-gradient-to-r from-primary via-accent to-[#2E844A] bg-clip-text text-transparent">for Marketing</span>
+        </h1>
+        <p class="text-lg md:text-xl text-white/50 max-w-2xl mx-auto leading-relaxed mb-12">
+          An org-agnostic blueprint for building a custom AI marketing agent — combining Data Cloud, Marketing Cloud Growth, and CRM into one conversational interface.
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-6 text-white/30 text-sm">
+          <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-primary pulse-dot inline-block"></span> 24 Components</span>
+          <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-accent pulse-dot inline-block" style="animation-delay:0.5s"></span> 8 Phases</span>
+          <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-success pulse-dot inline-block" style="animation-delay:1s"></span> ~3h Setup</span>
+        </div>
+        <p class="text-white/20 text-xs mt-16 animate-bounce">Scroll or press &rarr; to navigate</p>
+      </div>
+    </div>
+
+    <!-- SLIDE 2: The Problem -->
+    <div class="slide" data-bg="light" id="slide-1">
+      <div class="slide-content max-w-4xl w-full">
+        <p class="text-primary text-sm font-bold tracking-[0.2em] uppercase mb-4">The Challenge</p>
+        <h2 class="font-heading text-4xl md:text-6xl font-medium text-secondary leading-tight mb-8">
+          Marketing data<br>lives everywhere.
+        </h2>
+        <p class="text-xl text-muted max-w-2xl leading-relaxed mb-12">
+          Paid ads in Data Cloud. Campaigns in CRM. Segments in Marketing Cloud. Performance in Tableau. No single place to explore, analyze, and act — until now.
+        </p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="bg-surface rounded-xl p-5 text-center card-hover">
+            <p class="font-heading text-2xl font-medium text-primary mb-1">Data Cloud</p>
+            <p class="text-xs text-muted">Paid ad data (DMOs/DLOs)</p>
+          </div>
+          <div class="bg-surface rounded-xl p-5 text-center card-hover">
+            <p class="font-heading text-2xl font-medium text-accent mb-1">CRM</p>
+            <p class="text-xs text-muted">Campaigns & Leads</p>
+          </div>
+          <div class="bg-surface rounded-xl p-5 text-center card-hover">
+            <p class="font-heading text-2xl font-medium text-success mb-1">MC Growth</p>
+            <p class="text-xs text-muted">Segments & Journeys</p>
+          </div>
+          <div class="bg-surface rounded-xl p-5 text-center card-hover">
+            <p class="font-heading text-2xl font-medium text-warning mb-1">Tableau</p>
+            <p class="text-xs text-muted">Visualizations</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: The Solution -->
+    <div class="slide" data-bg="dark" id="slide-2">
+      <div class="orb w-72 h-72 bg-accent bottom-20 left-10" style="animation-delay: -2s;"></div>
+      <div class="slide-content max-w-4xl w-full text-center">
+        <p class="text-accent text-sm font-bold tracking-[0.2em] uppercase mb-4">The Solution</p>
+        <h2 class="font-heading text-4xl md:text-6xl font-medium text-white leading-tight mb-8">
+          One agent.<br>Three superpowers.
+        </h2>
+        <div class="grid md:grid-cols-3 gap-6 mt-12">
+          <div class="glow-border rounded-2xl">
+            <div class="bg-secondary rounded-2xl p-8 h-full">
+              <div class="w-16 h-16 rounded-xl bg-primary/20 flex items-center justify-center mx-auto mb-5">
+                <svg class="w-8 h-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
+              </div>
+              <h3 class="font-heading text-xl font-medium text-white mb-3">Data Exploration</h3>
+              <p class="text-white/50 text-sm leading-relaxed">Natural language queries across Data Cloud and CRM. No SQL knowledge needed.</p>
+            </div>
+          </div>
+          <div class="glow-border rounded-2xl">
+            <div class="bg-secondary rounded-2xl p-8 h-full">
+              <div class="w-16 h-16 rounded-xl bg-success/20 flex items-center justify-center mx-auto mb-5">
+                <svg class="w-8 h-8 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.841m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/></svg>
+              </div>
+              <h3 class="font-heading text-xl font-medium text-white mb-3">Campaign Creation</h3>
+              <p class="text-white/50 text-sm leading-relaxed">End-to-end: create segments, setup flows, trigger broadcasts — conversationally.</p>
+            </div>
+          </div>
+          <div class="glow-border rounded-2xl">
+            <div class="bg-secondary rounded-2xl p-8 h-full">
+              <div class="w-16 h-16 rounded-xl bg-accent/20 flex items-center justify-center mx-auto mb-5">
+                <svg class="w-8 h-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
+              </div>
+              <h3 class="font-heading text-xl font-medium text-white mb-3">Performance Analysis</h3>
+              <p class="text-white/50 text-sm leading-relaxed">Unified paid + owned view. Executive reports generated on demand.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: Architecture -->
+    <div class="slide" data-bg="light" id="slide-3">
+      <div class="slide-content max-w-5xl w-full">
+        <p class="text-primary text-sm font-bold tracking-[0.2em] uppercase mb-4">Architecture</p>
+        <h2 class="font-heading text-4xl md:text-5xl font-medium text-secondary leading-tight mb-10">
+          Layered for accuracy & flexibility
+        </h2>
+        <div class="space-y-3">
+          <div class="flex items-center gap-4 bg-secondary rounded-xl p-5 card-hover">
+            <div class="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center shrink-0">
+              <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"/></svg>
+            </div>
+            <div class="flex-1"><p class="text-white font-medium">Marketing Copilot Bot</p><p class="text-white/50 text-sm">Conversational entry point</p></div>
+          </div>
+          <div class="flex items-center gap-4 bg-primary rounded-xl p-5 card-hover">
+            <div class="w-12 h-12 rounded-lg bg-white/20 flex items-center justify-center shrink-0">
+              <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z"/></svg>
+            </div>
+            <div class="flex-1"><p class="text-white font-medium">ReAct Planner</p><p class="text-white/80 text-sm">Multi-step reasoning with variable persistence</p></div>
+          </div>
+          <div class="grid grid-cols-3 gap-3">
+            <div class="bg-surface border border-border rounded-xl p-4 text-center card-hover">
+              <p class="font-heading text-sm font-medium text-secondary mb-1">Data Explorer</p>
+              <p class="text-xs text-muted">4 functions</p>
+            </div>
+            <div class="bg-surface border border-border rounded-xl p-4 text-center card-hover">
+              <p class="font-heading text-sm font-medium text-secondary mb-1">Campaign Ops</p>
+              <p class="text-xs text-muted">2 functions</p>
+            </div>
+            <div class="bg-surface border border-border rounded-xl p-4 text-center card-hover">
+              <p class="font-heading text-sm font-medium text-secondary mb-1">Performance</p>
+              <p class="text-xs text-muted">3 functions</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-4 bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/20 rounded-xl p-5 card-hover">
+            <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center shrink-0">
+              <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 14.5"/></svg>
+            </div>
+            <div class="flex-1">
+              <p class="text-secondary font-medium">AI Grounding Layer <span class="text-xs font-bold text-accent bg-accent/10 px-2 py-0.5 rounded-full ml-2">NEW IN V2</span></p>
+              <p class="text-muted text-sm">Data Prism · Metadata Studio · MI Semantic Model</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-4 bg-surface border border-border rounded-xl p-5 card-hover">
+            <div class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center shrink-0">
+              <svg class="w-6 h-6 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375"/></svg>
+            </div>
+            <div class="flex-1"><p class="text-secondary font-medium">Data Cloud + CRM</p><p class="text-muted text-sm">DMOs · DLOs · CRM Objects · Data Graphs</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: AI Grounding -->
+    <div class="slide" data-bg="dark" id="slide-4">
+      <div class="orb w-64 h-64 bg-success top-20 right-20" style="animation-delay: -6s;"></div>
+      <div class="slide-content max-w-5xl w-full">
+        <p class="text-accent text-sm font-bold tracking-[0.2em] uppercase mb-4">AI Grounding Layer</p>
+        <h2 class="font-heading text-4xl md:text-6xl font-medium text-white leading-tight mb-6">
+          What makes it<br><span class="text-accent">accurate.</span>
+        </h2>
+        <p class="text-white/50 text-lg max-w-2xl mb-12">Three layers ensure the agent understands your data in business terms — not raw API names.</p>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-7 card-hover backdrop-blur">
+            <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center mb-4">
+              <span class="text-white font-bold text-sm">1</span>
+            </div>
+            <h3 class="font-heading text-lg font-medium text-white mb-2">Einstein Data Prism</h3>
+            <p class="text-white/30 text-xs font-bold uppercase tracking-wider mb-2">Automatic</p>
+            <p class="text-white/60 text-sm leading-relaxed">Auto-scans metadata, generates descriptions, stores in vector DB. Returns semantically matched fields at query time.</p>
+          </div>
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-7 card-hover backdrop-blur">
+            <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center mb-4">
+              <span class="text-white font-bold text-sm">2</span>
+            </div>
+            <h3 class="font-heading text-lg font-medium text-white mb-2">Metadata Studio</h3>
+            <p class="text-white/30 text-xs font-bold uppercase tracking-wider mb-2">Admin-Curated</p>
+            <p class="text-white/60 text-sm leading-relaxed">Admins review and refine descriptions. Add business context like "CPC = Cost per click in USD."</p>
+          </div>
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-7 card-hover backdrop-blur">
+            <div class="w-10 h-10 rounded-full bg-success/20 flex items-center justify-center mb-4">
+              <span class="text-white font-bold text-sm">3</span>
+            </div>
+            <h3 class="font-heading text-lg font-medium text-white mb-2">MI Semantic Model</h3>
+            <p class="text-white/30 text-xs font-bold uppercase tracking-wider mb-2">Platform-Native</p>
+            <p class="text-white/60 text-sm leading-relaxed">Pre-built by MI Data Pipeline. Defines CPC, CTR, ROAS as proper metrics with calculation formulas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: NL-to-SQL -->
+    <div class="slide" data-bg="light" id="slide-5">
+      <div class="slide-content max-w-4xl w-full">
+        <p class="text-primary text-sm font-bold tracking-[0.2em] uppercase mb-4">Core Engine</p>
+        <h2 class="font-heading text-4xl md:text-5xl font-medium text-secondary leading-tight mb-6">
+          NL-to-SQL: 3-Layer Translation
+        </h2>
+        <p class="text-muted text-lg max-w-2xl mb-12">How "show me Meta Ads CPC by campaign" becomes a valid, accurate SQL query.</p>
+
+        <div class="space-y-4">
+          <div class="flex gap-5 items-start bg-surface rounded-2xl p-6 card-hover border border-border">
+            <div class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center text-lg font-bold shrink-0">1</div>
+            <div>
+              <h3 class="font-heading text-lg font-medium text-secondary mb-1">Schema Discovery</h3>
+              <p class="text-muted text-sm">Discovers all available tables, fields, types, and enriched business descriptions from Data Prism at runtime.</p>
+            </div>
+          </div>
+          <div class="flex justify-center text-border text-2xl">&darr;</div>
+          <div class="flex gap-5 items-start bg-surface rounded-2xl p-6 card-hover border border-border">
+            <div class="w-12 h-12 rounded-full bg-accent text-white flex items-center justify-center text-lg font-bold shrink-0">2</div>
+            <div>
+              <h3 class="font-heading text-lg font-medium text-secondary mb-1">Prompt Template</h3>
+              <p class="text-muted text-sm">Schema + descriptions injected into a prompt with Data Cloud SQL rules: ANSI SQL, JOINs, NULLIF() for safe division.</p>
+            </div>
+          </div>
+          <div class="flex justify-center text-border text-2xl">&darr;</div>
+          <div class="flex gap-5 items-start bg-surface rounded-2xl p-6 card-hover border border-border">
+            <div class="w-12 h-12 rounded-full bg-success text-white flex items-center justify-center text-lg font-bold shrink-0">3</div>
+            <div>
+              <h3 class="font-heading text-lg font-medium text-secondary mb-1">Validated Execution</h3>
+              <p class="text-muted text-sm">SQL executed against Data Cloud Query API. On error, ReAct planner retries with error context for automatic correction.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: Implementation Phases -->
+    <div class="slide" data-bg="dark" id="slide-6">
+      <div class="slide-content max-w-5xl w-full">
+        <p class="text-accent text-sm font-bold tracking-[0.2em] uppercase mb-4">Implementation</p>
+        <h2 class="font-heading text-4xl md:text-5xl font-medium text-white leading-tight mb-10">
+          8 phases to demo-ready.
+        </h2>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bg-white/5 border border-white/10 rounded-xl p-5 flex gap-4 items-start card-hover">
+            <span class="text-primary font-heading font-bold text-xl mt-0.5">1</span>
+            <div><p class="text-white font-medium text-sm">MI Foundation</p><p class="text-white/40 text-xs">EMI Mock, pipelines, enrichment, patterns ~45m</p></div>
+          </div>
+          <div class="bg-accent/10 border border-accent/20 rounded-xl p-5 flex gap-4 items-start card-hover">
+            <span class="text-accent font-heading font-bold text-xl mt-0.5">1.5</span>
+            <div><p class="text-white font-medium text-sm">AI Grounding Layer <span class="text-accent text-xs">NEW</span></p><p class="text-white/40 text-xs">Data Prism, Metadata Studio, SDM ~15m</p></div>
+          </div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-5 flex gap-4 items-start card-hover">
+            <span class="text-primary font-heading font-bold text-xl mt-0.5">2A</span>
+            <div><p class="text-white font-medium text-sm">NL-to-SQL Architecture</p><p class="text-white/40 text-xs">3-layer translation design</p></div>
+          </div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-5 flex gap-4 items-start card-hover">
+            <span class="text-primary font-heading font-bold text-xl mt-0.5">2</span>
+            <div><p class="text-white font-medium text-sm">Apex Services & Templates</p><p class="text-white/40 text-xs">6 services + 2 prompts ~45m</p></div>
+          </div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-5 flex gap-4 items-start card-hover">
+            <span class="text-primary font-heading font-bold text-xl mt-0.5">3</span>
+            <div><p class="text-white font-medium text-sm">GenAI Functions</p><p class="text-white/40 text-xs">8 functions mapped to Agentforce ~20m</p></div>
+          </div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-5 flex gap-4 items-start card-hover">
+            <span class="text-primary font-heading font-bold text-xl mt-0.5">4-5</span>
+            <div><p class="text-white font-medium text-sm">Plugins, Planner & Bot</p><p class="text-white/40 text-xs">3 plugins, ReAct planner, bot ~25m</p></div>
+          </div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-5 flex gap-4 items-start card-hover">
+            <span class="text-primary font-heading font-bold text-xl mt-0.5">6</span>
+            <div><p class="text-white font-medium text-sm">Deployment</p><p class="text-white/40 text-xs">24 components in dependency order ~10m</p></div>
+          </div>
+          <div class="bg-white/5 border border-white/10 rounded-xl p-5 flex gap-4 items-start card-hover">
+            <span class="text-primary font-heading font-bold text-xl mt-0.5">7-8</span>
+            <div><p class="text-white font-medium text-sm">Validation & Demo Script</p><p class="text-white/40 text-xs">Paid Media agent, quality checks ~28m</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: Components -->
+    <div class="slide" data-bg="light" id="slide-7">
+      <div class="slide-content max-w-5xl w-full text-center">
+        <p class="text-primary text-sm font-bold tracking-[0.2em] uppercase mb-4">What's Included</p>
+        <h2 class="font-heading text-4xl md:text-6xl font-medium text-secondary leading-tight mb-12">
+          <span class="text-primary">24</span> deployable components.
+        </h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-left">
+          <div class="bg-surface rounded-xl p-5 border border-border card-hover">
+            <p class="font-heading text-3xl font-medium text-primary mb-2">6</p>
+            <p class="font-bold text-secondary text-sm mb-1">Apex Services</p>
+            <p class="text-xs text-muted">Schema, Explorer, CRM, Campaign, Broadcast, Performance</p>
+          </div>
+          <div class="bg-surface rounded-xl p-5 border border-border card-hover">
+            <p class="font-heading text-3xl font-medium text-accent mb-2">8</p>
+            <p class="font-bold text-secondary text-sm mb-1">GenAI Functions</p>
+            <p class="text-xs text-muted">Full mapping layer between AI and services</p>
+          </div>
+          <div class="bg-surface rounded-xl p-5 border border-border card-hover">
+            <p class="font-heading text-3xl font-medium text-success mb-2">3</p>
+            <p class="font-bold text-secondary text-sm mb-1">GenAI Plugins</p>
+            <p class="text-xs text-muted">Explorer, Campaigns, Performance — with orchestration</p>
+          </div>
+          <div class="bg-surface rounded-xl p-5 border border-border card-hover">
+            <p class="font-heading text-3xl font-medium text-secondary mb-2">7</p>
+            <p class="font-bold text-secondary text-sm mb-1">Platform Config</p>
+            <p class="text-xs text-muted">Planner, Bot, BotVersion, Templates ×2, PermSet, CSP</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: Demo Script -->
+    <div class="slide" data-bg="dark" id="slide-8">
+      <div class="orb w-80 h-80 bg-primary top-0 left-1/3" style="animation-delay: -3s;"></div>
+      <div class="slide-content max-w-5xl w-full">
+        <p class="text-accent text-sm font-bold tracking-[0.2em] uppercase mb-4">Demo Script</p>
+        <h2 class="font-heading text-4xl md:text-5xl font-medium text-white leading-tight mb-10">
+          Three-act story.
+        </h2>
+        <div class="grid md:grid-cols-3 gap-6">
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-7">
+            <p class="text-primary font-bold text-xs uppercase tracking-widest mb-3">Act 1 — Discovery</p>
+            <h3 class="font-heading text-lg text-white mb-4">Data Exploration</h3>
+            <div class="space-y-3">
+              <p class="text-white/60 text-sm bg-white/5 rounded-lg p-3 italic">"Show me what marketing data we have"</p>
+              <p class="text-white/60 text-sm bg-white/5 rounded-lg p-3 italic">"How many Meta Ads campaigns?"</p>
+              <p class="text-white/60 text-sm bg-white/5 rounded-lg p-3 italic">"What does our CRM data look like?"</p>
+            </div>
+          </div>
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-7">
+            <p class="text-accent font-bold text-xs uppercase tracking-widest mb-3">Act 2 — Insight</p>
+            <h3 class="font-heading text-lg text-white mb-4">Performance Analysis</h3>
+            <div class="space-y-3">
+              <p class="text-white/60 text-sm bg-white/5 rounded-lg p-3 italic">"Compare all paid channels"</p>
+              <p class="text-white/60 text-sm bg-white/5 rounded-lg p-3 italic">"Highest CPC? Generate a report"</p>
+              <p class="text-white/60 text-sm bg-white/5 rounded-lg p-3 italic">"Unified paid + owned view"</p>
+            </div>
+          </div>
+          <div class="bg-white/5 border border-white/10 rounded-2xl p-7">
+            <p class="text-success font-bold text-xs uppercase tracking-widest mb-3">Act 3 — Action</p>
+            <h3 class="font-heading text-lg text-white mb-4">Campaign Execution</h3>
+            <div class="space-y-3">
+              <p class="text-white/60 text-sm bg-white/5 rounded-lg p-3 italic">"Create a segment for top clickers"</p>
+              <p class="text-white/60 text-sm bg-white/5 rounded-lg p-3 italic">"Trigger a broadcast to them"</p>
+              <p class="text-white/60 text-sm bg-white/5 rounded-lg p-3 italic">"Executive summary report"</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 10: Closing -->
+    <div class="slide" data-bg="gradient" id="slide-9">
+      <div class="orb w-96 h-96 bg-white/20 top-[-100px] right-[-100px]" style="animation-delay: -5s;"></div>
+      <div class="slide-content text-center max-w-3xl">
+        <p class="text-accent text-sm font-bold tracking-[0.2em] uppercase mb-6">Ready to Build</p>
+        <h2 class="font-heading text-5xl md:text-7xl font-medium text-white leading-[1.05] tracking-tight mb-8">
+          The future of<br>marketing is<br><span class="text-accent">conversational.</span>
+        </h2>
+        <p class="text-white/50 text-lg max-w-xl mx-auto mb-10">24 components. 3 capabilities. One agent. Deploy it on any Salesforce org with Agentforce, Data Cloud, and MC Growth.</p>
+        <div class="grid grid-cols-4 gap-4 max-w-lg mx-auto">
+          <div class="text-center">
+            <p class="font-heading text-2xl font-medium text-white">6</p>
+            <p class="text-white/30 text-xs">Apex</p>
+          </div>
+          <div class="text-center">
+            <p class="font-heading text-2xl font-medium text-white">8</p>
+            <p class="text-white/30 text-xs">Functions</p>
+          </div>
+          <div class="text-center">
+            <p class="font-heading text-2xl font-medium text-white">3</p>
+            <p class="text-white/30 text-xs">Plugins</p>
+          </div>
+          <div class="text-center">
+            <p class="font-heading text-2xl font-medium text-white">3</p>
+            <p class="text-white/30 text-xs">Grounding Layers</p>
+          </div>
+        </div>
+        <div class="mt-16">
+          <img src="https://a.sfdcstatic.com/shared/images/c360-nav/salesforce-with-type-logo.svg" alt="Salesforce" class="h-7 mx-auto opacity-40" />
+          <p class="text-white/20 text-xs mt-4">Agentforce for Marketing — Solutions Template v2</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Navigation -->
+  <div class="fixed bottom-0 left-0 right-0 z-50 bg-transparent">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <button id="prevBtn" onclick="navigate(-1)" class="text-white/30 hover:text-white/70 transition-colors text-sm flex items-center gap-2 disabled:opacity-20" disabled>
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"/></svg>
+        Previous
+      </button>
+      <button id="nextBtn" onclick="navigate(1)" class="text-white/30 hover:text-white/70 transition-colors text-sm flex items-center gap-2">
+        Next
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const totalSlides = 10;
+    let currentSlide = 0;
+    let isTransitioning = false;
+
+    // Build nav dots
+    const dotsContainer = document.getElementById('navDots');
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'nav-dot w-2 h-2 rounded-full bg-white/20' + (i === 0 ? ' active' : '');
+      dot.onclick = () => goToSlide(i);
+      dotsContainer.appendChild(dot);
+    }
+
+    function updateUI() {
+      // Update slides
+      document.querySelectorAll('.slide').forEach((s, i) => {
+        s.classList.remove('active', 'prev');
+        if (i === currentSlide) s.classList.add('active');
+        else if (i < currentSlide) s.classList.add('prev');
+      });
+
+      // Update dots
+      dotsContainer.querySelectorAll('.nav-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === currentSlide);
+      });
+
+      // Update counter
+      document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+
+      // Update progress
+      document.getElementById('progressBar').style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+
+      // Update buttons
+      document.getElementById('prevBtn').disabled = currentSlide === 0;
+      document.getElementById('nextBtn').style.visibility = currentSlide === totalSlides - 1 ? 'hidden' : 'visible';
+
+      // Update body bg based on slide
+      const bg = document.querySelectorAll('.slide')[currentSlide].dataset.bg;
+      if (bg === 'dark') {
+        document.body.style.backgroundColor = '#032D60';
+        document.getElementById('prevBtn').className = 'text-white/30 hover:text-white/70 transition-colors text-sm flex items-center gap-2';
+        document.getElementById('nextBtn').className = 'text-white/30 hover:text-white/70 transition-colors text-sm flex items-center gap-2';
+      } else if (bg === 'gradient') {
+        document.body.style.backgroundColor = '#032D60';
+        document.getElementById('prevBtn').className = 'text-white/30 hover:text-white/70 transition-colors text-sm flex items-center gap-2';
+        document.getElementById('nextBtn').className = 'text-white/30 hover:text-white/70 transition-colors text-sm flex items-center gap-2';
+      } else {
+        document.body.style.backgroundColor = '#FFFFFF';
+        document.getElementById('prevBtn').className = 'text-muted/50 hover:text-muted transition-colors text-sm flex items-center gap-2';
+        document.getElementById('nextBtn').className = 'text-muted/50 hover:text-muted transition-colors text-sm flex items-center gap-2';
+      }
+    }
+
+    function navigate(dir) {
+      if (isTransitioning) return;
+      const next = currentSlide + dir;
+      if (next < 0 || next >= totalSlides) return;
+      goToSlide(next);
+    }
+
+    function goToSlide(index) {
+      if (isTransitioning || index === currentSlide) return;
+      isTransitioning = true;
+      currentSlide = index;
+      updateUI();
+      setTimeout(() => { isTransitioning = false; }, 700);
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); navigate(1); }
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); navigate(-1); }
+    });
+
+    // Scroll/touch navigation
+    let touchStartY = 0;
+    let lastWheel = 0;
+    document.addEventListener('wheel', (e) => {
+      const now = Date.now();
+      if (now - lastWheel < 800) return;
+      lastWheel = now;
+      if (e.deltaY > 30) navigate(1);
+      else if (e.deltaY < -30) navigate(-1);
+    }, { passive: true });
+
+    document.addEventListener('touchstart', (e) => { touchStartY = e.touches[0].clientY; });
+    document.addEventListener('touchend', (e) => {
+      const diff = touchStartY - e.changedTouches[0].clientY;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) navigate(1);
+        else navigate(-1);
+      }
+    });
+
+    // Initial state
+    updateUI();
+  </script>
+</body>
+</html>
