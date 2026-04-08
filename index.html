@@ -53,7 +53,8 @@
     .template-card { background: #fff; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: all .35s cubic-bezier(.25,.8,.25,1); }
     .template-card:hover { box-shadow: 0 20px 60px rgba(3,45,96,.1); transform: translateY(-4px); border-color: var(--primary); }
 
-    .card-header { padding: 2rem 2rem 1.75rem; position: relative; overflow: hidden; }
+    .card-header { padding: 2rem 2rem 1.75rem; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; }
+    .featured-grid .card-header { min-height: 220px; }
     .card-header::before { content: ''; position: absolute; inset: 0; opacity: .06; background-image: radial-gradient(circle at 20% 80%, currentColor 1px, transparent 1px), radial-gradient(circle at 80% 20%, currentColor 1px, transparent 1px); background-size: 24px 24px; }
     .card-header-inner { position: relative; z-index: 1; }
 
