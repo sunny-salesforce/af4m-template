@@ -83,6 +83,14 @@
     .theme-scoping .card-header { background: linear-gradient(135deg, var(--accent), var(--primary)); color: #fff; }
     .theme-scoping .card-icon { background: rgba(255,255,255,.15); }
 
+    /* Also Included — single row, uniform sizing */
+    .also-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr)); gap: 1.25rem; margin-bottom: 3rem; }
+    .also-grid .template-card .card-header { background: var(--surface); color: var(--text); padding: 1.5rem 1.75rem; }
+    .also-grid .template-card .card-header-inner { display: flex; align-items: center; gap: 1rem; }
+    .also-grid .template-card .card-icon { background: var(--secondary); margin-bottom: 0; width: 44px; height: 44px; border-radius: 10px; }
+    .also-grid .template-card .card-header h3 { font-size: 1.05rem; margin-bottom: .15rem; }
+    .also-grid .template-card .card-header p { font-size: .8rem; opacity: .6; }
+
     /* Coming Soon grid — smaller cards */
     .coming-soon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
     .coming-soon-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; display: flex; align-items: flex-start; gap: 1rem; opacity: .6; cursor: default; }
@@ -207,16 +215,16 @@
 
     <!-- Also Included -->
     <p class="section-label fade-up" style="margin-top: 1rem;">Also Included</p>
-    <div class="featured-grid" style="margin-bottom: 3rem;">
-      <a href="agentforce-marketing-interactive.html" class="template-card fade-up" style="border: 1px solid var(--border);">
-        <div class="card-header" style="background: var(--surface); color: var(--text); padding: 1.5rem 2rem 1.25rem;">
-          <div class="card-header-inner" style="display: flex; align-items: center; gap: 1rem;">
-            <div class="card-icon" style="background: var(--secondary); margin-bottom: 0; width: 44px; height: 44px; border-radius: 10px;">
+    <div class="also-grid">
+      <a href="agentforce-marketing-interactive.html" class="template-card fade-up">
+        <div class="card-header">
+          <div class="card-header-inner">
+            <div class="card-icon">
               <svg viewBox="0 0 24 24" style="width: 22px; height: 22px;"><path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
             </div>
             <div>
-              <h3 style="font-size: 1.1rem; margin-bottom: .15rem;">Interactive Slide Deck</h3>
-              <p style="font-size: .8rem; opacity: .6;">10-slide full-screen presentation with keyboard, scroll & touch nav</p>
+              <h3>Interactive Slide Deck</h3>
+              <p>10-slide full-screen presentation with keyboard, scroll & touch nav</p>
             </div>
           </div>
         </div>
